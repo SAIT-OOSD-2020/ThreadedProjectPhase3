@@ -28,6 +28,7 @@
                   <Button fx:id="btnProductSave1" alignment="BOTTOM_RIGHT" layoutX="470.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Save" />
                   <Button fx:id="btnProductEdit1" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" />
                   <Button fx:id="btnPackageAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
+
                </children>
             </AnchorPane>
         </content>

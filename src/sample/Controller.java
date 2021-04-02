@@ -137,8 +137,8 @@ public class Controller {
             {
                 productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2)));
             }
-            colProductId.setCellValueFactory(new PropertyValueFactory<Product, Integer>("ProductId"));
-            colProdName.setCellValueFactory(new PropertyValueFactory<Product, String>("ProdName"));
+            colProductId.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
+            colProdName.setCellValueFactory(new PropertyValueFactory<>("ProdName"));
             tblProducts.setItems(productList);
 
             conn.close();
