@@ -300,6 +300,14 @@ public class Controller {
                 new Alert(Alert.AlertType.WARNING,
                         "Product insert failed", ButtonType.CLOSE).showAndWait();
             }
+            ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
+            ArrayList listOfProducts = new ArrayList();
+            while (rsProducts.next()) {
+                listOfProducts.add(rsProducts.getString(2));
+            }
+            ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
+            cmbProducts.getItems().addAll(intList);
+            lstProducts.setItems(intList);
             conn.close();
         } catch (SQLException ex) {
             new Alert(Alert.AlertType.ERROR,
@@ -307,5 +315,5 @@ public class Controller {
             //Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
