@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="753.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="834.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
       <Tab text="Packages">
         <content>
@@ -27,14 +27,17 @@
                         <TableColumn fx:id="colPkgAgencyCommission" prefWidth="75.0" text="Commission" />
                     </columns>
                   </TableView>
-                  <Button fx:id="btnProductDelete1" alignment="BOTTOM_RIGHT" layoutX="530.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Delete" />
-                  <Button fx:id="btnProductSave1" alignment="BOTTOM_RIGHT" layoutX="470.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Save" />
-                  <Button fx:id="btnProductEdit1" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" />
-                  <Button fx:id="btnPackageAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
+                  <Button fx:id="btnProductDelete1" alignment="BOTTOM_RIGHT" layoutX="417.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Delete" />
+                  <Button fx:id="btnProductSave1" alignment="BOTTOM_RIGHT" layoutX="304.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Save" />
+                  <Button fx:id="btnProductEdit1" alignment="BOTTOM_RIGHT" layoutX="243.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" />
+                  <Button fx:id="btnPackageAdd" alignment="BOTTOM_RIGHT" layoutX="115.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
                   <ComboBox fx:id="cmbPackages" layoutX="579.0" layoutY="28.0" prefWidth="150.0" />
-                  <TextField fx:id="txtPkgName" layoutX="557.0" layoutY="86.0" />
-                  <TextField fx:id="txtPkgStartDate" layoutX="557.0" layoutY="134.0" />
-                  <TextField fx:id="txtPkgEndDate" layoutX="557.0" layoutY="188.0" />
+                  <TextField fx:id="txtPkgStartDate" layoutX="557.0" layoutY="129.0" />
+                  <TextField fx:id="txtPkgEndDate" layoutX="557.0" layoutY="186.0" />
+                  <ComboBox fx:id="cmbPackages1" layoutX="566.0" layoutY="72.0" prefWidth="150.0" />
+                  <TextField fx:id="txtPkgDesc" layoutX="557.0" layoutY="251.0" />
+                  <TextField fx:id="txtPkgBasePrice" layoutX="557.0" layoutY="313.0" />
+                  <TextField fx:id="txtPkgAgencyCommission" layoutX="557.0" layoutY="370.0" />
 
                </children>
             </AnchorPane>

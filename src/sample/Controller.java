@@ -4,6 +4,8 @@ import classes.Package;
 import classes.Product;
 import classes.Supplier;
 import data.MySQLConnectionData;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,10 +44,28 @@ public class Controller {
     @FXML
     private TableColumn<Package, Currency> colPkgAgencyCommission;
 
+
     @FXML
     private Button btnPackageAdd;
     @FXML
     private ComboBox cmbPackages;
+    @FXML
+    private ComboBox<Package> cmbPackages1;
+
+    @FXML
+    private TextField txtPkgStartDate;
+
+    @FXML
+    private TextField txtPkgEndDate;
+
+    @FXML
+    private TextField txtPkgDesc;
+
+    @FXML
+    private TextField txtPkgBasePrice;
+
+    @FXML
+    private TextField txtPkgAgencyCommission;
 
     // Products
     @FXML
@@ -165,6 +185,22 @@ public class Controller {
             tblPackages.setItems(packageList);
             ObservableList<Integer> pkg = FXCollections.observableArrayList(listOfPackages);
             cmbPackages.getItems().addAll(pkg);
+
+            cmbPackages1.setItems(packageList);
+
+            cmbPackages1.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Package>() {
+                @Override
+                public void changed(ObservableValue<? extends Package> observableValue, Package o, Package t1) {
+
+                    txtPkgStartDate.setText(t1.getPkgStartDate().toString());
+
+                    txtPkgEndDate.setText(t1.getPkgEndDate().toString());
+                    txtPkgDesc.setText(t1.getPkgDesc().toString());
+                    txtPkgBasePrice.setText(String.valueOf(t1.getPkgBasePrice()));
+                    txtPkgAgencyCommission.setText(String.valueOf(t1.getPkgAgencyCommission()));
+                }
+            });
+
 
             conn.close();
         } catch (SQLException throwables) {

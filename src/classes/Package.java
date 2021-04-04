@@ -8,20 +8,20 @@ import java.util.Date;
 
 public class Package {
     private SimpleIntegerProperty PackageId;
-    private SimpleStringProperty PkgName;
+    private String PkgName;
     private Date PkgStartDate;
     private Date PkgEndDate;
-    private SimpleStringProperty PkgDesc;
+    private String PkgDesc;
     private SimpleDoubleProperty PkgBasePrice;
     private SimpleDoubleProperty PkgAgencyCommission;
 
     public Package(int packageId, String pkgName, Date pkgStartDate, Date pkgEndDate,
                    String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
         PackageId = new SimpleIntegerProperty(packageId);
-        PkgName = new SimpleStringProperty(pkgName);
+        PkgName = pkgName;
         PkgStartDate = pkgStartDate;
         PkgEndDate = pkgEndDate;
-        PkgDesc = new SimpleStringProperty(pkgDesc);
+        PkgDesc = pkgDesc;
         PkgBasePrice = new SimpleDoubleProperty(pkgBasePrice);
         PkgAgencyCommission = new SimpleDoubleProperty(pkgAgencyCommission);
     }
@@ -39,15 +39,11 @@ public class Package {
     }
 
     public String getPkgName() {
-        return PkgName.get();
-    }
-
-    public SimpleStringProperty pkgNameProperty() {
         return PkgName;
     }
 
     public void setPkgName(String pkgName) {
-        this.PkgName.set(pkgName);
+        PkgName = pkgName;
     }
 
     public Date getPkgStartDate() {
@@ -67,15 +63,11 @@ public class Package {
     }
 
     public String getPkgDesc() {
-        return PkgDesc.get();
-    }
-
-    public SimpleStringProperty pkgDescProperty() {
         return PkgDesc;
     }
 
     public void setPkgDesc(String pkgDesc) {
-        this.PkgDesc.set(pkgDesc);
+        PkgDesc = pkgDesc;
     }
 
     public double getPkgBasePrice() {
@@ -100,5 +92,10 @@ public class Package {
 
     public void setPkgAgencyCommission(double pkgAgencyCommission) {
         this.PkgAgencyCommission.set(pkgAgencyCommission);
+    }
+
+    @Override
+    public String toString() {
+        return PkgName + "";
     }
 }
