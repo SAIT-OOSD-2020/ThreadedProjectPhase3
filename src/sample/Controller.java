@@ -2,6 +2,7 @@ package sample;
 
 import classes.Package;
 import classes.Product;
+import data.MySQLConnectionData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -126,15 +127,21 @@ public class Controller {
         assert btnCustomerSave != null : "fx:id=\"btnCustomerSave\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnCustomerEdit != null : "fx:id=\"btnCustomerEdit\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnCustomerAdd != null : "fx:id=\"btnCustomerAdd\" was not injected: check your FXML file 'sample.fxml'.";
+
+
         try {
-            Connection conn = getConnection();
+            String url = "jdbc:mysql://localhost:3306/travelexperts";
+            String username = "root";
+            String password = "";
+            MySQLConnectionData MySQL = new MySQLConnectionData(url, username, password);
+            Connection conn = MySQL.getMySQLConnection();
+
             Statement stmt = conn.createStatement();
             ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
             ObservableList<Product> productList = FXCollections.observableArrayList();
 
 
-            while(rsProducts.next())
-            {
+            while (rsProducts.next()) {
                 productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2)));
             }
             colProductId.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
@@ -145,9 +152,5 @@ public class Controller {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
-
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "root", "");
     }
 }
