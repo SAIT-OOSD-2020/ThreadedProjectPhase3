@@ -4,7 +4,7 @@ import classes.Package;
 import classes.Product;
 import classes.Supplier;
 import data.MySQLConnectionData;
-import dataValidation.IsPresentValidator;
+import dataValidation.Validator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -285,8 +285,9 @@ public class Controller {
             Connection conn = MySQL.getMySQLConnection();
             String sql = "insert into products (ProdName) values (?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            IsPresentValidator valid = new IsPresentValidator();
-            boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name");
+            Validator valid = new Validator();
+            boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name") && valid.IsNonNumericValidator(txtProdName, "Product Name");
+
             if (isvalid) {
                 stmt.setString(1, txtProdName.getText());
                 if (stmt.executeUpdate() > 0) {
