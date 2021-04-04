@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="753.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
@@ -15,21 +16,25 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="tblPackages" layoutX="14.0" layoutY="14.0" prefHeight="209.0" prefWidth="565.0">
+                  <TableView fx:id="tblPackages" layoutX="14.0" layoutY="14.0" prefHeight="209.0" prefWidth="534.0">
                     <columns>
-                      <TableColumn fx:id="colPackageId" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="colPkgName" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="colPkgStartDate" prefWidth="75.0" text="Start Date" />
-                        <TableColumn fx:id="colPkgEndDate" prefWidth="75.0" text="End Date" />
+                      <TableColumn fx:id="colPackageId" prefWidth="60.0" text="ID" />
+                      <TableColumn fx:id="colPkgName" prefWidth="65.0" text="Name" />
+                        <TableColumn fx:id="colPkgStartDate" prefWidth="82.0" text="Start Date" />
+                        <TableColumn fx:id="colPkgEndDate" prefWidth="93.0" text="End Date" />
                         <TableColumn fx:id="colPkgDesc" prefWidth="75.0" text="Description" />
                         <TableColumn fx:id="colPkgBasePrice" prefWidth="75.0" text="Base Price" />
-                        <TableColumn fx:id="colPkgAgencyCommission" prefWidth="75.0" text="Comission" />
+                        <TableColumn fx:id="colPkgAgencyCommission" prefWidth="75.0" text="Commission" />
                     </columns>
                   </TableView>
                   <Button fx:id="btnProductDelete1" alignment="BOTTOM_RIGHT" layoutX="530.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Delete" />
                   <Button fx:id="btnProductSave1" alignment="BOTTOM_RIGHT" layoutX="470.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Save" />
                   <Button fx:id="btnProductEdit1" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" />
                   <Button fx:id="btnPackageAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
+                  <ComboBox fx:id="cmbPackages" layoutX="579.0" layoutY="28.0" prefWidth="150.0" />
+                  <TextField fx:id="txtPkgName" layoutX="557.0" layoutY="86.0" />
+                  <TextField fx:id="txtPkgStartDate" layoutX="557.0" layoutY="134.0" />
+                  <TextField fx:id="txtPkgEndDate" layoutX="557.0" layoutY="188.0" />
 
                </children>
             </AnchorPane>
@@ -49,8 +54,8 @@
                   <Button fx:id="btnProductSave" alignment="BOTTOM_RIGHT" layoutX="470.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Save" />
                   <Button fx:id="btnProductEdit" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" AnchorPane.topAnchor="294.0" />
                   <Button fx:id="btnProductAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
-                  <ListView fx:id="lstProducts" layoutX="397.0" layoutY="32.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ComboBox fx:id="cmbProducts" layoutX="56.0" layoutY="260.0" prefWidth="150.0" />
+                  <ListView fx:id="lstProducts" layoutX="277.0" layoutY="46.0" prefHeight="200.0" prefWidth="200.0" />
+                  <ComboBox fx:id="cmbProducts" layoutX="563.0" layoutY="40.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
         </content>
@@ -59,12 +64,8 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="574.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
+                  <ListView fx:id="lstSuppliers" layoutX="251.0" layoutY="23.0" prefHeight="200.0" prefWidth="200.0" />
+                  <ComboBox fx:id="cmbSuppliers" layoutX="523.0" layoutY="23.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
         </content>

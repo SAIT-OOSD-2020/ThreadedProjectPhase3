@@ -2,6 +2,7 @@ package sample;
 
 import classes.Package;
 import classes.Product;
+import classes.Supplier;
 import data.MySQLConnectionData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,6 +44,8 @@ public class Controller {
 
     @FXML
     private Button btnPackageAdd;
+    @FXML
+    private ComboBox cmbPackages;
 
     // Products
     @FXML
@@ -55,7 +58,7 @@ public class Controller {
     private TableColumn<Product, String> colProdName;
 
     @FXML
-    private ListView<Product> lstProducts;
+    private ListView lstProducts;
 
     @FXML
     private ComboBox cmbProducts;
@@ -71,6 +74,8 @@ public class Controller {
 
     @FXML
     private Button btnProductAdd;
+
+    // Bookings
 
     @FXML
     private Button btnBookingDelete;
@@ -97,9 +102,14 @@ public class Controller {
     private Button btnCustomerAdd;
 
     @FXML
+    private ListView lstSuppliers;
+
+    @FXML
+    private ComboBox cmbSuppliers;
+
+
+    @FXML
     void initialize() {
-
-
         try {
             String url = "jdbc:mysql://localhost:3306/travelexperts";
             String username = "root";
@@ -109,21 +119,52 @@ public class Controller {
 
             Statement stmt = conn.createStatement();
             ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
+
             ObservableList<Product> productList = FXCollections.observableArrayList();
-
-            ArrayList list = new ArrayList();
-
+            ArrayList listOfProducts = new ArrayList();
             while (rsProducts.next()) {
                 productList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2)));
-                list.add(rsProducts.getString(2));
+                listOfProducts.add(rsProducts.getString(2));
             }
             colProductId.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
             colProdName.setCellValueFactory(new PropertyValueFactory<>("ProdName"));
             tblProducts.setItems(productList);
-
-            
-            ObservableList<Integer> intList = FXCollections.observableArrayList(list);
+            ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
             cmbProducts.getItems().addAll(intList);
+            lstProducts.setItems(intList);
+
+
+            ResultSet rsSuppliers = stmt.executeQuery("SELECT * FROM Suppliers");
+            ObservableList<Supplier> supplierList = FXCollections.observableArrayList();
+            ArrayList listOfSuppliers = new ArrayList();
+            while (rsSuppliers.next()) {
+                supplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers .getString(2)));
+                listOfSuppliers.add(rsSuppliers.getString(2));
+            }
+            ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
+            cmbSuppliers.getItems().addAll(sup);
+            lstSuppliers.setItems(sup);
+
+            ResultSet rsPackages = stmt.executeQuery("SELECT * FROM Packages");
+
+            ObservableList<Package> packageList = FXCollections.observableArrayList();
+            ArrayList listOfPackages = new ArrayList();
+            while (rsPackages.next()) {
+                packageList.add(new Package(rsPackages.getInt(1), rsPackages.getString(2), rsPackages.getDate(3),
+                        rsPackages.getDate(4), rsPackages.getString(5), rsPackages.getDouble(6),
+                        rsPackages.getDouble(7)));
+                listOfPackages.add(rsPackages.getString(2));
+            }
+            colPackageId.setCellValueFactory(new PropertyValueFactory<>("PackageId"));
+            colPkgName.setCellValueFactory(new PropertyValueFactory<>("PkgName"));
+            colPkgStartDate.setCellValueFactory(new PropertyValueFactory<>("PkgStartDate"));
+            colPkgEndDate.setCellValueFactory(new PropertyValueFactory<>("PkgEndDate"));
+            colPkgDesc.setCellValueFactory(new PropertyValueFactory<>("PkgDesc"));
+            colPkgBasePrice.setCellValueFactory(new PropertyValueFactory<>("PkgBasePrice"));
+            colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<>("PkgAgencyCommission"));
+            tblPackages.setItems(packageList);
+            ObservableList<Integer> pkg = FXCollections.observableArrayList(listOfPackages);
+            cmbPackages.getItems().addAll(pkg);
 
             conn.close();
         } catch (SQLException throwables) {
