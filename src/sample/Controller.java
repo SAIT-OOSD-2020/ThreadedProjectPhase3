@@ -4,6 +4,7 @@ import classes.Package;
 import classes.Product;
 import classes.Supplier;
 import data.MySQLConnectionData;
+import dataValidation.IsPresentValidator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -11,19 +12,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller {
 
@@ -165,7 +161,7 @@ public class Controller {
             ObservableList<Supplier> supplierList = FXCollections.observableArrayList();
             ArrayList listOfSuppliers = new ArrayList();
             while (rsSuppliers.next()) {
-                supplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers .getString(2)));
+                supplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
                 listOfSuppliers.add(rsSuppliers.getString(2));
             }
             ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
@@ -209,7 +205,6 @@ public class Controller {
             });
 
 
-
             conn.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -251,6 +246,7 @@ public class Controller {
 
 
     }
+
     @FXML
     private void handlePackageUpdate(ActionEvent event) {
         try {
@@ -289,30 +285,31 @@ public class Controller {
             Connection conn = MySQL.getMySQLConnection();
             String sql = "insert into products (ProdName) values (?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, txtProdName.getText());
-            if (stmt.executeUpdate() > 0)
-            {
-                new Alert(Alert.AlertType.INFORMATION,
-                        "Product inserted successfully", ButtonType.CLOSE).showAndWait();
+            IsPresentValidator valid = new IsPresentValidator();
+            boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name");
+            if (isvalid) {
+                stmt.setString(1, txtProdName.getText());
+                if (stmt.executeUpdate() > 0) {
+                    new Alert(Alert.AlertType.INFORMATION,
+                            "Product inserted successfully", ButtonType.CLOSE).showAndWait();
+                } else {
+                    new Alert(Alert.AlertType.WARNING,
+                            "Product insert failed", ButtonType.CLOSE).showAndWait();
+                }
+                ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
+                ArrayList listOfProducts = new ArrayList();
+                while (rsProducts.next()) {
+                    listOfProducts.add(rsProducts.getString(2));
+                }
+                ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
+                cmbProducts.getItems().addAll(intList);
+                lstProducts.setItems(intList);
             }
-            else
-            {
-                new Alert(Alert.AlertType.WARNING,
-                        "Product insert failed", ButtonType.CLOSE).showAndWait();
-            }
-            ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
-            ArrayList listOfProducts = new ArrayList();
-            while (rsProducts.next()) {
-                listOfProducts.add(rsProducts.getString(2));
-            }
-            ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-            cmbProducts.getItems().addAll(intList);
-            lstProducts.setItems(intList);
+
             conn.close();
         } catch (SQLException ex) {
             new Alert(Alert.AlertType.ERROR,
                     "An SQL Exception occurred: " + ex.getMessage(), ButtonType.OK).showAndWait();
-            //Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
