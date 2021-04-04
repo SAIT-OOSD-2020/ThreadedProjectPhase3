@@ -51,11 +51,13 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnProductDelete" alignment="BOTTOM_RIGHT" layoutX="530.0" layoutY="294.0" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Delete" />
-                  <Button fx:id="btnProductEdit" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" AnchorPane.topAnchor="294.0" />
-                  <Button fx:id="btnProductAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
-                  <ListView fx:id="lstProducts" layoutX="277.0" layoutY="46.0" prefHeight="200.0" prefWidth="200.0" />
-                  <ComboBox fx:id="cmbProducts" layoutX="563.0" layoutY="40.0" prefWidth="150.0" />
+                  <ListView fx:id="lstProducts" layoutX="64.0" layoutY="54.0" prefHeight="200.0" prefWidth="200.0" />
+                  <ComboBox fx:id="cmbProducts" layoutX="355.0" layoutY="72.0" prefWidth="150.0" />
+                  <Button fx:id="btnProductDelete" alignment="CENTER" disable="true" layoutX="338.0" layoutY="421.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Delete" textAlignment="CENTER" />
+                  <Button fx:id="btnProductEdit" alignment="CENTER" disable="true" layoutX="122.0" layoutY="421.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#handlePackageUpdate" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Edit" textAlignment="CENTER" />
+                  <Button fx:id="btnProductAdd" alignment="CENTER" layoutX="14.0" layoutY="421.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" onAction="#handleProductAdd" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Add" textAlignment="CENTER" />
+                  <Button fx:id="btnProductSave" alignment="CENTER" disable="true" layoutX="231.0" layoutY="421.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Save" textAlignment="CENTER" />
+                  <TextField fx:id="txtProdName" layoutX="364.0" layoutY="129.0" />
                </children>
             </AnchorPane>
         </content>
@@ -74,7 +76,6 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="625.0">
                <children>
-                  <Button fx:id="btnCustomerDelete" alignment="BOTTOM_RIGHT" layoutX="530.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Delete" AnchorPane.bottomAnchor="14.0" />
                   <TableView fx:id="tblCustomers" layoutX="14.0" layoutY="11.0" prefHeight="232.0" prefWidth="731.0">
                     <columns>
                       <TableColumn fx:id="colCustomerId" prefWidth="36.0" text="ID" />
@@ -91,8 +92,6 @@
                         <TableColumn fx:id="colAgentId" prefWidth="247.0" text="Agent Id" />
                     </columns>
                   </TableView>
-                  <Button fx:id="btnCustomerEdit" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" AnchorPane.bottomAnchor="14.0" />
-                  <Button fx:id="btnCustomerAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" AnchorPane.bottomAnchor="14.0" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -100,9 +99,6 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnBookingDelete" alignment="BOTTOM_RIGHT" layoutX="530.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Delete" />
-                  <Button fx:id="btnBookingEdit" alignment="BOTTOM_RIGHT" layoutX="410.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Edit" />
-                  <Button fx:id="btnBookingAdd" alignment="BOTTOM_RIGHT" layoutX="350.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-radius: 8px;" text="Add" />
                   <TableView fx:id="tblBookings" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />

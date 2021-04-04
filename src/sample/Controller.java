@@ -11,14 +11,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
 
@@ -93,6 +98,9 @@ public class Controller {
 
     @FXML
     private ComboBox cmbProducts;
+
+    @FXML
+    private TextField txtProdName;
 
     @FXML
     private Button btnProductDelete;
@@ -270,4 +278,34 @@ public class Controller {
             throwables.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleProductAdd(ActionEvent event) {
+        try {
+            String url = "jdbc:mysql://localhost:3306/travelexperts";
+            String username = "root";
+            String password = "";
+            MySQLConnectionData MySQL = new MySQLConnectionData(url, username, password);
+            Connection conn = MySQL.getMySQLConnection();
+            String sql = "insert into products (ProdName) values (?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, txtProdName.getText());
+            if (stmt.executeUpdate() > 0)
+            {
+                new Alert(Alert.AlertType.INFORMATION,
+                        "Product inserted successfully", ButtonType.CLOSE).showAndWait();
+            }
+            else
+            {
+                new Alert(Alert.AlertType.WARNING,
+                        "Product insert failed", ButtonType.CLOSE).showAndWait();
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            new Alert(Alert.AlertType.ERROR,
+                    "An SQL Exception occurred: " + ex.getMessage(), ButtonType.OK).showAndWait();
+            //Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
