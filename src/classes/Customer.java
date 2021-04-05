@@ -5,32 +5,32 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Customer {
     private SimpleIntegerProperty CustomerId;
-    private SimpleStringProperty CustFirstName;
-    private SimpleStringProperty CustLastName;
-    private SimpleStringProperty CustAddress;
-    private SimpleStringProperty CustCity;
-    private SimpleStringProperty CustProv;
-    private SimpleStringProperty CustPostal;
-    private SimpleStringProperty CustCountry;
-    private SimpleStringProperty CustHomePhone;
-    private SimpleStringProperty CustBusPhone;
-    private SimpleStringProperty CustEmail;
+    private String CustFirstName;
+    private String CustLastName;
+    private String CustAddress;
+    private String CustCity;
+    private String CustProv;
+    private String CustPostal;
+    private String CustCountry;
+    private String CustHomePhone;
+    private String CustBusPhone;
+    private String CustEmail;
     private SimpleIntegerProperty AgentId;
 
     public Customer(int customerId, String custFirstName, String custLastName,
                     String custAddress, String custCity,String custProv, String custPostal, String custCountry,
                     String custHomePhone, String custBusPhone, String custEmail, int agentId) {
         CustomerId = new SimpleIntegerProperty(customerId);
-        CustFirstName = new SimpleStringProperty(custFirstName);
-        CustLastName = new SimpleStringProperty(custLastName);
-        CustAddress = new SimpleStringProperty(custAddress);
-        CustCity = new SimpleStringProperty(custCity);
-        CustProv = new SimpleStringProperty(custProv);
-        CustPostal = new SimpleStringProperty(custPostal);
-        CustCountry = new SimpleStringProperty(custCountry);
-        CustHomePhone = new SimpleStringProperty(custHomePhone);
-        CustBusPhone = new SimpleStringProperty(custBusPhone);
-        CustEmail = new SimpleStringProperty(custEmail);
+        CustFirstName = custFirstName;
+        CustLastName = custLastName;
+        CustAddress = custAddress;
+        CustCity = custCity;
+        CustProv = custProv;
+        CustPostal = custPostal;
+        CustCountry = custCountry;
+        CustHomePhone = custHomePhone;
+        CustBusPhone = custBusPhone;
+        CustEmail = custEmail;
         AgentId = new SimpleIntegerProperty(agentId);
     }
 
@@ -38,102 +38,108 @@ public class Customer {
         return CustomerId.get();
     }
 
+    public SimpleIntegerProperty customerIdProperty() {
+        return CustomerId;
+    }
 
     public void setCustomerId(int customerId) {
         this.CustomerId.set(customerId);
     }
 
     public String getCustFirstName() {
-        return CustFirstName.get();
+        return CustFirstName;
     }
 
-
     public void setCustFirstName(String custFirstName) {
-        this.CustFirstName.set(custFirstName);
+        CustFirstName = custFirstName;
     }
 
     public String getCustLastName() {
-        return CustLastName.get();
+        return CustLastName;
     }
 
     public void setCustLastName(String custLastName) {
-        this.CustLastName.set(custLastName);
+        CustLastName = custLastName;
     }
 
     public String getCustAddress() {
-        return CustAddress.get();
+        return CustAddress;
     }
 
     public void setCustAddress(String custAddress) {
-        this.CustAddress.set(custAddress);
+        CustAddress = custAddress;
     }
 
     public String getCustCity() {
-        return CustCity.get();
+        return CustCity;
     }
 
     public void setCustCity(String custCity) {
-        this.CustCity.set(custCity);
+        CustCity = custCity;
     }
 
     public String getCustProv() {
-        return CustProv.get();
+        return CustProv;
     }
 
     public void setCustProv(String custProv) {
-        this.CustProv.set(custProv);
+        CustProv = custProv;
     }
 
     public String getCustPostal() {
-        return CustPostal.get();
+        return CustPostal;
     }
 
     public void setCustPostal(String custPostal) {
-        this.CustPostal.set(custPostal);
+        CustPostal = custPostal;
     }
 
     public String getCustCountry() {
-        return CustCountry.get();
+        return CustCountry;
     }
 
-
     public void setCustCountry(String custCountry) {
-        this.CustCountry.set(custCountry);
+        CustCountry = custCountry;
     }
 
     public String getCustHomePhone() {
-        return CustHomePhone.get();
+        return CustHomePhone;
     }
 
-
     public void setCustHomePhone(String custHomePhone) {
-        this.CustHomePhone.set(custHomePhone);
+        CustHomePhone = custHomePhone;
     }
 
     public String getCustBusPhone() {
-        return CustBusPhone.get();
+        return CustBusPhone;
     }
 
-
     public void setCustBusPhone(String custBusPhone) {
-        this.CustBusPhone.set(custBusPhone);
+        CustBusPhone = custBusPhone;
     }
 
     public String getCustEmail() {
-        return CustEmail.get();
+        return CustEmail;
     }
 
-
     public void setCustEmail(String custEmail) {
-        this.CustEmail.set(custEmail);
+        CustEmail = custEmail;
     }
 
     public int getAgentId() {
         return AgentId.get();
     }
 
+    public SimpleIntegerProperty agentIdProperty() {
+        return AgentId;
+    }
 
     public void setAgentId(int agentId) {
         this.AgentId.set(agentId);
+    }
+
+    @Override
+    public String toString() {
+        return CustFirstName + " " + CustLastName;
     }
 }

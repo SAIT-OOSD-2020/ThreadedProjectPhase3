@@ -16,12 +16,17 @@ public class Validator {
     }
 
     public boolean IsNonNumericValidator(TextField tf, String textFieldName){
-        if (tf.getText().matches("^([A-Za-z]|[0-9])+$"))
+        if (tf.getText().matches("^([A-Za-z]|[0-9@!#$%^&])+$"))
         {
             new Alert(Alert.AlertType.INFORMATION,
-                    "Please do not include numeric values for " + textFieldName, ButtonType.CLOSE).showAndWait();
+                    "Please do not include numeric values or special characters for " + textFieldName,
+                    ButtonType.CLOSE).showAndWait();
             return false;
         }
         else return true;
     }
+
+//    public boolean INumericValidator(TextField tf, String textFieldName){
+//
+//    }
 }

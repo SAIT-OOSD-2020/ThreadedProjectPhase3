@@ -1,5 +1,6 @@
 package sample;
 
+import classes.Customer;
 import classes.Package;
 import classes.Product;
 import classes.Supplier;
@@ -120,6 +121,43 @@ public class Controller {
     @FXML
     private Button btnBookingAdd;
 
+    // Customers
+    @FXML
+    private ComboBox cmbCustomers;
+
+    @FXML
+    private TextField txtCustFirstName;
+
+    @FXML
+    private TextField txtCustLastName;
+
+    @FXML
+    private TextField txtCustAddress;
+
+    @FXML
+    private TextField txtCustCity;
+
+    @FXML
+    private TextField txtCustProv;
+
+    @FXML
+    private TextField txtCustPostal;
+
+    @FXML
+    private TextField txtCustCountry;
+
+    @FXML
+    private TextField txtCustHomePhone;
+
+    @FXML
+    private TextField txtCustBusPhone;
+
+    @FXML
+    private TextField txtCustEmail;
+
+    @FXML
+    private TextField txtAgentId;
+
     @FXML
     private Button btnCustomerDelete;
 
@@ -146,27 +184,7 @@ public class Controller {
             Connection conn = MySQL.getMySQLConnection();
             Statement stmt = conn.createStatement();
 
-            // Display values for Products tab
-            ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
-            ArrayList listOfProducts = new ArrayList();
-            while (rsProducts.next()) {
-                listOfProducts.add(rsProducts.getString(2));
-            }
-            ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-            cmbProducts.getItems().addAll(intList);
-            lstProducts.setItems(intList);
 
-            // Display values for Suppliers tab
-            ResultSet rsSuppliers = stmt.executeQuery("SELECT * FROM Suppliers");
-            ObservableList<Supplier> supplierList = FXCollections.observableArrayList();
-            ArrayList listOfSuppliers = new ArrayList();
-            while (rsSuppliers.next()) {
-                supplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
-                listOfSuppliers.add(rsSuppliers.getString(2));
-            }
-            ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
-            cmbSuppliers.getItems().addAll(sup);
-            lstSuppliers.setItems(sup);
 
             // Display values for Packages tab
             ResultSet rsPackages = stmt.executeQuery("SELECT * FROM Packages");
@@ -201,6 +219,65 @@ public class Controller {
                     txtPkgAgencyCommission.setText(String.valueOf(t1.getPkgAgencyCommission()));
                     btnPackageEdit.setDisable(false);
                     btnPackageSave.setDisable(true);
+                }
+            });
+
+            // Display values for Products tab
+            ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
+            ArrayList listOfProducts = new ArrayList();
+            while (rsProducts.next()) {
+                listOfProducts.add(rsProducts.getString(2));
+            }
+            ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
+            cmbProducts.getItems().addAll(intList);
+            lstProducts.setItems(intList);
+
+            // Display values for Suppliers tab
+            ResultSet rsSuppliers = stmt.executeQuery("SELECT * FROM Suppliers");
+            ObservableList<Supplier> supplierList = FXCollections.observableArrayList();
+            ArrayList listOfSuppliers = new ArrayList();
+            while (rsSuppliers.next()) {
+                supplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
+                listOfSuppliers.add(rsSuppliers.getString(2));
+            }
+            ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
+            cmbSuppliers.getItems().addAll(sup);
+            lstSuppliers.setItems(sup);
+
+            // Display values for Customers tab
+            ResultSet rsCustomers = stmt.executeQuery("SELECT * FROM Customers");
+            ObservableList<Customer> customerList = FXCollections.observableArrayList();
+            //ArrayList listOfCustomers = new ArrayList();
+            while (rsCustomers.next()) {
+                customerList.add(new Customer(rsCustomers.getInt(1), rsCustomers.getString(2), rsCustomers.getString(3),
+                        rsCustomers.getString(4), rsCustomers.getString(5),rsCustomers.getString(6),
+                        rsCustomers.getString(7),
+                        rsCustomers.getString(8),
+                        rsCustomers.getString(9), rsCustomers.getString(10), rsCustomers.getString(11),
+                        rsCustomers.getInt(12)));
+                //listOfCustomers.add(rsCustomers.getInt(1));
+            }
+            //ObservableList<Integer> cust = FXCollections.observableArrayList(listOfCustomers);
+            //cmbCustomers.getItems().addAll(cust);
+            cmbCustomers.setItems(customerList);
+
+            cmbCustomers.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Customer>() {
+                @Override
+                public void changed(ObservableValue<? extends Customer> observableValue, Customer o, Customer t1) {
+
+                    txtCustFirstName.setText(t1.getCustFirstName());
+                    txtCustLastName.setText(t1.getCustLastName());
+                    txtCustAddress.setText(t1.getCustAddress());
+                    txtCustCity.setText(t1.getCustCity());
+                    txtCustProv.setText(t1.getCustProv());
+                    txtCustPostal.setText(t1.getCustPostal());
+                    txtCustCountry.setText(t1.getCustCountry());
+                    txtCustHomePhone.setText(t1.getCustHomePhone());
+                    txtCustBusPhone.setText(t1.getCustBusPhone());
+                    txtCustEmail.setText(t1.getCustEmail());
+                    txtAgentId.setText(String.valueOf(t1.getAgentId()));
+
+
                 }
             });
 
