@@ -321,7 +321,7 @@ public class Controller {
             }
         });
 
-
+f
     }
 
     @FXML
@@ -363,7 +363,7 @@ public class Controller {
             String sql = "insert into products (ProdName) values (?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             Validator valid = new Validator();
-            boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name") && valid.IsNonNumericValidator(txtProdName, "Product Name");
+            boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name");
 
             if (isvalid) {
                 stmt.setString(1, txtProdName.getText());
