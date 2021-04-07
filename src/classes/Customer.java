@@ -1,7 +1,6 @@
 package classes;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public class Customer {
     private SimpleIntegerProperty CustomerId;
@@ -17,8 +16,14 @@ public class Customer {
     private String CustEmail;
     private SimpleIntegerProperty AgentId;
 
+    public Customer() {
+        CustomerId = new SimpleIntegerProperty();
+        AgentId = new SimpleIntegerProperty();
+
+    }
+
     public Customer(int customerId, String custFirstName, String custLastName,
-                    String custAddress, String custCity,String custProv, String custPostal, String custCountry,
+                    String custAddress, String custCity, String custProv, String custPostal, String custCountry,
                     String custHomePhone, String custBusPhone, String custEmail, int agentId) {
         CustomerId = new SimpleIntegerProperty(customerId);
         CustFirstName = custFirstName;
