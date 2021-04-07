@@ -32,7 +32,7 @@ public class ProductsController {
     @FXML
     private ComboBox cmbProducts;
     @FXML
-    private TextField txtProdName;
+    private TextField txtProdName, txtProdNameEdit;
     @FXML
     private Button btnProductDelete;
     @FXML
@@ -55,7 +55,7 @@ public class ProductsController {
                 listOfProducts.add(rsProducts.getString(2));
             }
             ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-            cmbProducts.getItems().addAll(intList);
+            //cmbProducts.getItems().addAll(intList);
             lstProducts.setItems(intList);
 
             conn.close();
@@ -90,7 +90,7 @@ public class ProductsController {
                     listOfProducts.add(rsProducts.getString(2));
                 }
                 ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-                cmbProducts.getItems().addAll(intList);
+                //cmbProducts.getItems().addAll(intList);
                 lstProducts.setItems(intList);
             }
 
