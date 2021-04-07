@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="625.0" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.CustomerController">
+    <children>
+        <ComboBox fx:id="cmbCustomers" layoutX="22.0" layoutY="14.0" prefWidth="150.0"/>
+        <TextField fx:id="txtCustFirstName" layoutX="21.0" layoutY="79.0" prefHeight="26.0" prefWidth="237.0"/>
+        <TextField fx:id="txtCustLastName" layoutX="280.0" layoutY="79.0" prefHeight="26.0" prefWidth="236.0"/>
+        <TextField fx:id="txtCustAddress" layoutX="21.0" layoutY="140.0" prefHeight="26.0" prefWidth="238.0"/>
+        <TextField fx:id="txtCustCity" layoutX="280.0" layoutY="140.0" prefHeight="26.0" prefWidth="240.0"/>
+        <TextField fx:id="txtCustProv" layoutX="22.0" layoutY="204.0"/>
+        <TextField fx:id="txtCustPostal" layoutX="193.0" layoutY="204.0"/>
+        <TextField fx:id="txtCustCountry" layoutX="368.0" layoutY="204.0"/>
+        <TextField fx:id="txtCustHomePhone" layoutX="20.0" layoutY="272.0" prefHeight="26.0" prefWidth="239.0"/>
+        <TextField fx:id="txtCustBusPhone" layoutX="277.0" layoutY="272.0" prefHeight="26.0" prefWidth="243.0"/>
+        <TextField fx:id="txtCustEmail" layoutX="20.0" layoutY="341.0" prefHeight="26.0" prefWidth="239.0"/>
+        <TextField fx:id="txtAgentId" layoutX="273.0" layoutY="341.0" prefHeight="26.0" prefWidth="240.0"/>
+        <Label layoutX="21.0" layoutY="62.0" text="First Name:"/>
+        <Label layoutX="280.0" layoutY="62.0" text="Last Name:"/>
+        <Label layoutX="21.0" layoutY="122.0" text="Address:"/>
+        <Label layoutX="280.0" layoutY="122.0" text="City:"/>
+        <Label layoutX="22.0" layoutY="180.0" text="Province:"/>
+        <Label layoutX="193.0" layoutY="180.0" text="Postal Code:"/>
+        <Label layoutX="368.0" layoutY="180.0" text="Country:"/>
+        <Label layoutX="20.0" layoutY="242.0" text="Home Phone:"/>
+        <Label layoutX="274.0" layoutY="242.0" text="Business Phone:"/>
+        <Label layoutX="20.0" layoutY="311.0" text="Email:"/>
+        <Label layoutX="275.0" layoutY="311.0" text="Agent:"/>
+    </children>
+</AnchorPane>
