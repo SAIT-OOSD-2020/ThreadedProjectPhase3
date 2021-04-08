@@ -49,6 +49,13 @@ public class CustomerController {
     @FXML // fx:id="editButton"
     private Button editButton; // Value injected by FXMLLoader
 
+
+
+    int selectedIndex;
+    Customer selectedCustomer = new Customer() ;
+
+
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert tableViewCustomers != null : "fx:id=\"tableViewCustomers\" was not injected: check your FXML file 'customers.fxml'.";
@@ -57,36 +64,54 @@ public class CustomerController {
 
 
 
+
 //        TableColumn colCustomerId =new TableColumn<>(),colAgentId= null;
 //        TableColumn<Customer,String> colCustFirstName= null,colCustLastName= null,colCustAddress= null,colCustCity= null,colCustProv= null,
 //                colCustPostal= null,colCustCountry= null,colCustHomePhone= null,colCustBusPhone= null,colCustEmail= null;
 
-        Customer selectedCustomer = new Customer() ;
 
         fillCustomerTable();
-        editButton.disableProperty().setValue(true);
 
+        editButton.disableProperty().setValue(true);
+        btnViewBookings.disableProperty().setValue(true);
+
+
+        tableViewCustomers.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                if(t1.intValue()>=0){
+                    selectedIndex =  t1.intValue();
+                }
+
+            }
+        });
 
             tableViewCustomers.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Customer>() {
                 @Override
                 public void changed(ObservableValue<? extends Customer> observableValue, Customer customer, Customer t1) {
 
-                    editButton.disableProperty().setValue(false);
-                    selectedCustomer.setCustomerId(t1.getCustomerId());
-                    selectedCustomer.setCustFirstName(t1.getCustFirstName());
-                    selectedCustomer.setCustLastName(t1.getCustLastName());
-                    selectedCustomer.setCustAddress(t1.getCustAddress());
-                    selectedCustomer.setCustCity(t1.getCustCity());
-                    selectedCustomer.setCustProv(t1.getCustProv());
-                    selectedCustomer.setCustPostal(t1.getCustPostal());
-                    selectedCustomer.setCustCountry(t1.getCustCountry());
-                    selectedCustomer.setCustHomePhone(t1.getCustHomePhone());
-                    selectedCustomer.setCustBusPhone(t1.getCustBusPhone());
-                    selectedCustomer.setCustEmail(t1.getCustEmail());
-                    selectedCustomer.setAgentId(t1.getAgentId());
-//                    selectedCustomer = new Customer(t1.getCustomerId(),t1.getCustFirstName(),t1.getCustLastName(),t1.getCustAddress(),
-//                            t1.getCustCity(),t1.getCustProv(),t1.getCustPostal(),t1.getCustCountry(),t1.getCustHomePhone(),t1.getCustBusPhone(),
-//                            t1.getCustEmail(),t1.getAgentId());
+                    if(t1!=null){
+//                        System.out.println("customer : "+t1);
+
+                        editButton.disableProperty().setValue(false);
+                        btnViewBookings.disableProperty().setValue(false);
+//                        selectedCustomer.setCustomerId(t1.getCustomerId());
+//                        selectedCustomer.setCustFirstName(t1.getCustFirstName());
+//                        selectedCustomer.setCustLastName(t1.getCustLastName());
+//                        selectedCustomer.setCustAddress(t1.getCustAddress());
+//                        selectedCustomer.setCustCity(t1.getCustCity());
+//                        selectedCustomer.setCustProv(t1.getCustProv());
+//                        selectedCustomer.setCustPostal(t1.getCustPostal());
+//                        selectedCustomer.setCustCountry(t1.getCustCountry());
+//                        selectedCustomer.setCustHomePhone(t1.getCustHomePhone());
+//                        selectedCustomer.setCustBusPhone(t1.getCustBusPhone());
+//                        selectedCustomer.setCustEmail(t1.getCustEmail());
+//                        selectedCustomer.setAgentId(t1.getAgentId());
+
+                    selectedCustomer = new Customer(t1.getCustomerId(),t1.getCustFirstName(),t1.getCustLastName(),t1.getCustAddress(),
+                            t1.getCustCity(),t1.getCustProv(),t1.getCustPostal(),t1.getCustCountry(),t1.getCustHomePhone(),t1.getCustBusPhone(),
+                            t1.getCustEmail(),t1.getAgentId());
+                    }
                 }
             });
 
@@ -110,13 +135,13 @@ public class CustomerController {
                         stage.show();
 
 
-                        stage.setOnHiding(new EventHandler<WindowEvent>() {
-                            @Override
-                            public void handle(WindowEvent windowEvent) {
+//                        stage.setOnHiding(new EventHandler<WindowEvent>() {
+//                            @Override
+//                            public void handle(WindowEvent windowEvent) {
 //                                fillCustomerTable();
 //                                tableViewCustomers.refresh();
-                            }
-                        });
+//                            }
+//                        });
 
                     } catch (IOException e) {
                         Logger logger = Logger.getLogger(getClass().getName());
@@ -146,7 +171,9 @@ public class CustomerController {
                         stage.setOnHiding(new EventHandler<WindowEvent>() {
                             @Override
                             public void handle(WindowEvent windowEvent) {
-//                                fillCustomerTable();
+                                fillCustomerTable();
+                                tableViewCustomers.getSelectionModel().select(selectedIndex);
+
 //                                tableViewCustomers.refresh();
                             }
                         });
@@ -164,9 +191,11 @@ public class CustomerController {
 
     private void fillCustomerTable() {
         try {
+//            tableViewCustomers = new TableView<>();
             MySQLConnectionData MySQL = new MySQLConnectionData();
             Connection conn = MySQL.getMySQLConnection();
             Statement stmt = conn.createStatement();
+
 
             // Display values for Customers tab
             ResultSet rsCustomers = stmt.executeQuery("SELECT * FROM customers");

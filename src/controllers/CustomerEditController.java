@@ -20,6 +20,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerEditController {
@@ -78,6 +79,9 @@ public class CustomerEditController {
     @FXML // fx:id="btnSaveCustomer"
     private Button btnSaveCustomer; // Value injected by FXMLLoader
 
+    @FXML // fx:id="btnDeleteCustomer"
+    private Button btnDeleteCustomer; // Value injected by FXMLLoader
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert textFieldsCustomers != null : "fx:id=\"textFieldsCustomers\" was not injected: check your FXML file 'customersEdit.fxml'.";
@@ -94,6 +98,8 @@ public class CustomerEditController {
         assert txtAgentId != null : "fx:id=\"txtAgentId\" was not injected: check your FXML file 'customersEdit.fxml'.";
         assert btnCancelCustomer != null : "fx:id=\"btnCancelCustomer\" was not injected: check your FXML file 'customersEdit.fxml'.";
         assert btnSaveCustomer != null : "fx:id=\"btnSaveCustomer\" was not injected: check your FXML file 'customersEdit.fxml'.";
+        assert btnDeleteCustomer != null : "fx:id=\"btnDeleteCustomer\" was not injected: check your FXML file 'customersEdit.fxml'.";
+
 
 
         txtCustFirstName.setText(cust.getCustFirstName());
@@ -116,6 +122,35 @@ public class CustomerEditController {
             }
         });
 
+        btnDeleteCustomer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Alert alert = new Alert(Alert.AlertType.WARNING,"Are you Sure, you want to delete this Customer?",ButtonType.CANCEL,ButtonType.YES);
+                Optional<ButtonType> result =  alert.showAndWait();
+
+                if(result.get() == ButtonType.YES){
+                    try {
+                        MySQLConnectionData MySQL = new MySQLConnectionData();
+                        Connection conn = MySQL.getMySQLConnection();
+                        Statement stmt = conn.createStatement();
+
+                        String sql = "Delete FROM customers where CustomerId = "+cust.getCustomerId();
+                        stmt.executeUpdate(sql);
+
+                        Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Customer has been deleted", ButtonType.OK);
+                        conn.close();
+
+                        alert2.show();
+                        Stage stage = (Stage) btnSaveCustomer.getScene().getWindow();
+                        stage.close();
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+            }
+        });
+
         btnSaveCustomer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -128,7 +163,7 @@ public class CustomerEditController {
                     "AgentId = '"+ txtAgentId.getText()+"'";
 
                     sql+=" where CustomerId = "+cust.getCustomerId()+"";
-                    System.out.println(sql);
+//                    System.out.println(sql);
 
                     Statement stmt = conn.createStatement();
                     int UpdatedRows = stmt.executeUpdate(sql);

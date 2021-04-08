@@ -14,6 +14,6 @@
         </columns>
       </TableView>
       <Button fx:id="editButton" layoutX="35.0" layoutY="400.0" mnemonicParsing="false" text="Edit" />
-      <Button fx:id="btnViewBookings" layoutX="112.0" layoutY="400.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="btnViewBookings" layoutX="112.0" layoutY="400.0" mnemonicParsing="false" text="View Bookings" />
     </children>
 </AnchorPane>
