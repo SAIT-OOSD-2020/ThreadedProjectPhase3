@@ -9,11 +9,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +37,64 @@ public class SuppliersController {
     private ComboBox cmbSuppliers;
 
     @FXML
+    private Button btnAdd, btnEdit, btnDelete;
+
+    @FXML
+    private TextField txtSearch;
+
+    @FXML
     void initialize() {
+        loadSupplierData();
+
+        btnAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                // Call SupplierAdd controller
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../layout/supplierAdd.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                SupplierAdd scene2Controller = loader.getController();
+
+                int nextId = findNextId();
+
+                scene2Controller.NextId(nextId);
+
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
+                popupStage.setScene(new Scene(root));
+                popupStage.setTitle("Add New Supplier");
+
+                popupStage.setOnHidden(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent windowEvent) {
+                        loadSupplierData();
+
+                        // Set focus to new added supplier.
+                        lstSuppliers.scrollTo(lstSuppliers.getItems().size() - 1);
+                        lstSuppliers.getSelectionModel().select(lstSuppliers.getItems().size() - 1);
+                    }
+                });
+
+                popupStage.show();
+
+
+            }
+        });
+    }
+
+    private int findNextId() {
+        int size = lstSuppliers.getItems().size();
+        Supplier lastSupplier = (Supplier) lstSuppliers.getItems().get(size - 1);
+        return lastSupplier.getSupplierId() + 1;
+    }
+
+    private void loadSupplierData() {
         try {
             MySQLConnectionData MySQL = new MySQLConnectionData();
             Connection conn = MySQL.getMySQLConnection();
@@ -44,7 +110,8 @@ public class SuppliersController {
             }
             ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
             cmbSuppliers.getItems().addAll(sup);
-            lstSuppliers.setItems(sup);
+
+            lstSuppliers.setItems(supplierList);
 
             conn.close();
         } catch (
