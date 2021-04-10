@@ -23,11 +23,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class SuppliersController {
 
@@ -54,6 +52,60 @@ public class SuppliersController {
 
         btnAddClickedEvent();
         btnEditClickedEvent();
+        btnDeleteClickedEvent();
+    }
+
+    private void btnDeleteClickedEvent() {
+        btnDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Supplier selectedSup = (Supplier) lstSuppliers.getSelectionModel().getSelectedItem();
+                int selectedSupIndex = lstSuppliers.getSelectionModel().getSelectedIndex();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Selected Supplier");
+                alert.setHeaderText("This will delete the selected supplier from the database.");
+                alert.setContentText("Are you ok with this?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    // ... user chose OK
+                    try {
+                        MySQLConnectionData MySQL = new MySQLConnectionData();
+                        Connection conn = MySQL.getMySQLConnection();
+
+                        String sql = "DELETE FROM Suppliers \n" +
+                                "WHERE `SupplierId` = ?;";
+
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setInt(1, selectedSup.getSupplierId());
+
+                        int rowsAffected = stmt.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("Delete successfully");
+                        }
+
+                        loadSupplierData();
+
+                        // Set focus to next supplier.
+                        int newSupSize = lstSuppliers.getItems().size();
+                        if (newSupSize == selectedSupIndex){
+                            // If the last supplier is deleted, focus on the last one.
+                            lstSuppliers.scrollTo(newSupSize-1);
+                            lstSuppliers.getSelectionModel().select(newSupSize-1);
+                        } else {
+                            lstSuppliers.scrollTo(selectedSupIndex);
+                            lstSuppliers.getSelectionModel().select(selectedSupIndex);
+                        }
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                } else {
+                    // ... user chose CANCEL or closed the dialog
+                }
+            }
+        });
     }
 
     private void btnEditClickedEvent() {
