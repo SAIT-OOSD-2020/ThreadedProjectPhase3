@@ -25,6 +25,7 @@ import javafx.stage.WindowEvent;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class SuppliersController {
@@ -44,6 +45,8 @@ public class SuppliersController {
 
     private SupplierEdit childEditController;
 
+    private List<String> supplierNameList;
+
 
     @FXML
     void initialize() {
@@ -53,6 +56,22 @@ public class SuppliersController {
         btnAddClickedEvent();
         btnEditClickedEvent();
         btnDeleteClickedEvent();
+
+        txtSearchChangedEvent();
+    }
+
+    private void txtSearchChangedEvent() {
+        txtSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if (supplierNameList.contains(t1)){
+                    System.out.println(t1);
+                    int index = supplierNameList.indexOf(t1);
+                    lstSuppliers.scrollTo(index);
+                    lstSuppliers.getSelectionModel().select(index);
+                }
+            }
+        });
     }
 
     private void btnDeleteClickedEvent() {
@@ -212,6 +231,13 @@ public class SuppliersController {
         } catch (
                 SQLException throwables) {
             throwables.printStackTrace();
+        }
+
+        // Load the name list for searching.
+        supplierNameList = new ArrayList<>();
+        for(Object supplier: lstSuppliers.getItems()){
+            Supplier sup = (Supplier) supplier;
+            supplierNameList.add(sup.getSupName());
         }
     }
 }
