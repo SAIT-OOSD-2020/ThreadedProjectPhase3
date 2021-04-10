@@ -1,68 +1,62 @@
 package controllers;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import classes.Supplier;
 import data.MySQLConnectionData;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-public class SupplierAdd {
-
-    @FXML
-    private ResourceBundle resources;
+public class SupplierEdit {
 
     @FXML
-    private URL location;
+    private TextField txtSupId, txtSupName;
 
     @FXML
-    private TextField txtNewSupName;
-
-    @FXML
-    protected Button btnAddNew;
-
-    @FXML
-    protected Button btnCancel;
-
-    private int nextId;
+    private Button btnSave, btnCancel;
 
     private SuppliersController parentSupplierCtrl;
 
+    private int selectedSupplierIndex;
+
     @FXML
     void initialize() {
-        btnAddNew.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        btnSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                String newSupName = txtNewSupName.getText();
+                int supId = Integer.parseInt(txtSupId.getText());
+                String newSupName = txtSupName.getText();
 
                 if (newSupName.isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Message");
-//                    alert.setHeaderText("Look, an Information Dialog");
                     alert.setContentText("Supplier name cannot be empty!");
-
                     alert.showAndWait();
                 } else {
                     try {
                         MySQLConnectionData MySQL = new MySQLConnectionData();
                         Connection conn = MySQL.getMySQLConnection();
-//                        Statement stmt = conn.createStatement();
 
-                        String sql = "INSERT INTO Suppliers(`SupplierId`,`SupName`) VALUES\n" +
-                                "(?, ?);";
+                        String sql = "UPDATE Suppliers SET\n" +
+                                "`SupName` = ?\n" +
+                                "WHERE `SupplierId` = ?;";
 
                         PreparedStatement stmt = conn.prepareStatement(sql);
-                        stmt.setInt(1, nextId);
-                        stmt.setString(2, newSupName);
+                        stmt.setString(1, newSupName);
+                        stmt.setInt(2, supId);
 
                         int rowsAffected = stmt.executeUpdate();
                         if (rowsAffected > 0) {
-                            System.out.println("Insert successfully");
+                            System.out.println("Update successfully");
                         }
 
                     } catch (SQLException throwables) {
@@ -70,11 +64,11 @@ public class SupplierAdd {
                     }
 
                     parentSupplierCtrl.loadSupplierData();
-                    // Set focus to new added supplier.
-                    parentSupplierCtrl.lstSuppliers.scrollTo(parentSupplierCtrl.lstSuppliers.getItems().size() - 1);
-                    parentSupplierCtrl.lstSuppliers.getSelectionModel().select(parentSupplierCtrl.lstSuppliers.getItems().size() - 1);
+                    // Set focus to new edited supplier.
+                    parentSupplierCtrl.lstSuppliers.scrollTo(selectedSupplierIndex);
+                    parentSupplierCtrl.lstSuppliers.getSelectionModel().select(selectedSupplierIndex);
 
-                    Stage stage = (Stage) btnAddNew.getScene().getWindow();
+                    Stage stage = (Stage) btnSave.getScene().getWindow();
 
                     stage.close();
                 }
@@ -90,11 +84,16 @@ public class SupplierAdd {
         });
     }
 
-    public void NextId(int id) {
-        nextId = id;
+    public void setParentController(SuppliersController currCtrl) {
+        parentSupplierCtrl = currCtrl;
     }
 
-    public void setParentController(SuppliersController parentCtrl) {
-        parentSupplierCtrl = parentCtrl;
+    public void passCurrSupplier(int selectedSup) {
+        selectedSupplierIndex = selectedSup;
+
+        Supplier currSup = (Supplier) parentSupplierCtrl.lstSuppliers.getItems().get(selectedSupplierIndex);
+
+        txtSupId.setText(currSup.getSupplierId()+"");
+        txtSupName.setText(currSup.getSupName());
     }
 }

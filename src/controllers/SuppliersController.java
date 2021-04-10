@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class SuppliersController {
 
     @FXML
-    private ListView lstSuppliers;
+    protected ListView lstSuppliers;
     @FXML
     private ComboBox cmbSuppliers;
 
@@ -42,9 +42,52 @@ public class SuppliersController {
     @FXML
     private TextField txtSearch;
 
+    private SupplierAdd childAddController;
+
+    private SupplierEdit childEditController;
+
+
     @FXML
     void initialize() {
         loadSupplierData();
+        lstSuppliers.getSelectionModel().select(0);
+
+        btnAddClickedEvent();
+        btnEditClickedEvent();
+    }
+
+    private void btnEditClickedEvent() {
+        SuppliersController currCtrl = this;
+        btnEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                // Call SupplierAdd controller
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../layout/supplierEdit.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                childEditController = loader.getController();
+                childEditController.setParentController(currCtrl);
+
+                int selectedSupIndex = lstSuppliers.getSelectionModel().getSelectedIndex();
+
+                childEditController.passCurrSupplier(selectedSupIndex);
+
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
+                popupStage.setScene(new Scene(root));
+                popupStage.setTitle("Edit Supplier");
+                popupStage.show();
+            }
+        });
+    }
+
+    private void btnAddClickedEvent() {
+        SuppliersController currCtrl = this;
 
         btnAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -59,30 +102,30 @@ public class SuppliersController {
                     e.printStackTrace();
                 }
 
-                SupplierAdd scene2Controller = loader.getController();
+                childAddController = loader.getController();
+                childAddController.setParentController(currCtrl);
 
                 int nextId = findNextId();
 
-                scene2Controller.NextId(nextId);
+                childAddController.NextId(nextId);
 
                 Stage popupStage = new Stage();
                 popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
                 popupStage.setScene(new Scene(root));
                 popupStage.setTitle("Add New Supplier");
 
-                popupStage.setOnHidden(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent windowEvent) {
-                        loadSupplierData();
-
-                        // Set focus to new added supplier.
-                        lstSuppliers.scrollTo(lstSuppliers.getItems().size() - 1);
-                        lstSuppliers.getSelectionModel().select(lstSuppliers.getItems().size() - 1);
-                    }
-                });
+//                popupStage.setOnHidden(new EventHandler<WindowEvent>() {
+//                    @Override
+//                    public void handle(WindowEvent windowEvent) {
+////                        loadSupplierData();
+//
+////                        // Set focus to new added supplier.
+////                        lstSuppliers.scrollTo(lstSuppliers.getItems().size() - 1);
+////                        lstSuppliers.getSelectionModel().select(lstSuppliers.getItems().size() - 1);
+//                    }
+//                });
 
                 popupStage.show();
-
 
             }
         });
@@ -94,7 +137,7 @@ public class SuppliersController {
         return lastSupplier.getSupplierId() + 1;
     }
 
-    private void loadSupplierData() {
+    protected void loadSupplierData() {
         try {
             MySQLConnectionData MySQL = new MySQLConnectionData();
             Connection conn = MySQL.getMySQLConnection();
