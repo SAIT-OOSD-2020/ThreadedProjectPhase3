@@ -77,6 +77,7 @@ public class SupplierAdd {
                     Stage stage = (Stage) btnAddNew.getScene().getWindow();
 
                     stage.close();
+
                 }
             }
         });

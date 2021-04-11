@@ -1,11 +1,11 @@
 package controllers;
 
-import classes.Package;
 import classes.Supplier;
 import data.MySQLConnectionData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,14 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.sql.*;
@@ -32,20 +27,23 @@ public class SuppliersController {
 
     @FXML
     protected ListView lstSuppliers;
-    @FXML
-    private ComboBox cmbSuppliers;
+
+//    @FXML
+//    private ComboBox cmbSuppliers;
 
     @FXML
     private Button btnAdd, btnEdit, btnDelete;
 
     @FXML
-    private TextField txtSearch;
+    protected TextField txtSearch;
 
     private SupplierAdd childAddController;
 
     private SupplierEdit childEditController;
 
-    private List<String> supplierNameList;
+//    private List<String> supplierNameList;
+    
+    protected ObservableList<Supplier> fullSupplierList;
 
 
     @FXML
@@ -61,15 +59,58 @@ public class SuppliersController {
     }
 
     private void txtSearchChangedEvent() {
+        txtSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                txtSearch.selectAll();
+            }
+        });
+
         txtSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                if (supplierNameList.contains(t1)){
-                    System.out.println(t1);
-                    int index = supplierNameList.indexOf(t1);
-                    lstSuppliers.scrollTo(index);
-                    lstSuppliers.getSelectionModel().select(index);
+
+//                loadSupplierData();
+
+                // When the textField is empty.
+                if (t1.isEmpty()){
+                    loadSupplierData();
+                    lstSuppliers.scrollTo(0);
+                    lstSuppliers.getSelectionModel().select(0);
+
+                    btnEdit.setDisable(false);
+                    btnDelete.setDisable(false);
+
+                } else {
+                    ObservableList<Supplier> tempList = FXCollections.observableArrayList();
+
+                    for (int i = 0; i < fullSupplierList.size(); i++){
+                        if (fullSupplierList.get(i).getSupName().matches("(?i).*"+ t1 + ".*")){
+                            tempList.add(fullSupplierList.get(i));
+                        }
+                    }
+
+                    lstSuppliers.setItems(tempList);
+
+                    if (lstSuppliers.getItems().size() == 0){
+                        btnEdit.setDisable(true);
+                        btnDelete.setDisable(true);
+                    } else {
+                        lstSuppliers.scrollTo(0);
+                        lstSuppliers.getSelectionModel().select(0);
+
+                        btnEdit.setDisable(false);
+                        btnDelete.setDisable(false);
+                    }
+
+//                    if (lstSuppliers.getSelectionModel().isEmpty()){
+//                        btnEdit.setDisable(true);
+//                        btnDelete.setDisable(true);
+//                    }
+
                 }
+
+
             }
         });
     }
@@ -146,7 +187,9 @@ public class SuppliersController {
 
                 int selectedSupIndex = lstSuppliers.getSelectionModel().getSelectedIndex();
 
-                childEditController.passCurrSupplier(selectedSupIndex);
+//                childEditController.passCurrSupplier(selectedSupIndex);
+                childEditController.passCurrSupplier(fullSupplierList.indexOf(lstSuppliers.getSelectionModel().getSelectedItem()));
+
 
                 Stage popupStage = new Stage();
                 popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
@@ -216,16 +259,17 @@ public class SuppliersController {
 
             // Display values for Suppliers tab
             ResultSet rsSuppliers = stmt.executeQuery("SELECT * FROM Suppliers");
-            ObservableList<Supplier> supplierList = FXCollections.observableArrayList();
-            ArrayList listOfSuppliers = new ArrayList();
-            while (rsSuppliers.next()) {
-                supplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
-                listOfSuppliers.add(rsSuppliers.getString(2));
-            }
-            ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
-            cmbSuppliers.getItems().addAll(sup);
+            fullSupplierList = FXCollections.observableArrayList();
 
-            lstSuppliers.setItems(supplierList);
+//            ArrayList listOfSuppliers = new ArrayList();
+            while (rsSuppliers.next()) {
+                fullSupplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
+//                listOfSuppliers.add(rsSuppliers.getString(2));
+            }
+//            ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
+//            cmbSuppliers.getItems().addAll(sup);
+
+            lstSuppliers.setItems(fullSupplierList);
 
             conn.close();
         } catch (
@@ -233,11 +277,11 @@ public class SuppliersController {
             throwables.printStackTrace();
         }
 
-        // Load the name list for searching.
-        supplierNameList = new ArrayList<>();
-        for(Object supplier: lstSuppliers.getItems()){
-            Supplier sup = (Supplier) supplier;
-            supplierNameList.add(sup.getSupName());
-        }
+//        // Load the name list for searching.
+//        supplierNameList = new ArrayList<>();
+//        for(Object supplier: lstSuppliers.getItems()){
+//            Supplier sup = (Supplier) supplier;
+//            supplierNameList.add(sup.getSupName());
+//        }
     }
 }

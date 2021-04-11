@@ -26,7 +26,7 @@ public class SupplierEdit {
 
     private SuppliersController parentSupplierCtrl;
 
-    private int selectedSupplierIndex;
+    private int selectedSupplierIndex = -1;
 
     @FXML
     void initialize() {
@@ -71,6 +71,7 @@ public class SupplierEdit {
                     Stage stage = (Stage) btnSave.getScene().getWindow();
 
                     stage.close();
+
                 }
             }
         });
@@ -91,7 +92,7 @@ public class SupplierEdit {
     public void passCurrSupplier(int selectedSup) {
         selectedSupplierIndex = selectedSup;
 
-        Supplier currSup = (Supplier) parentSupplierCtrl.lstSuppliers.getItems().get(selectedSupplierIndex);
+        Supplier currSup = parentSupplierCtrl.fullSupplierList.get(selectedSupplierIndex);
 
         txtSupId.setText(currSup.getSupplierId()+"");
         txtSupName.setText(currSup.getSupName());
