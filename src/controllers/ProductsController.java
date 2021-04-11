@@ -30,8 +30,6 @@ public class ProductsController {
     @FXML
     private ListView lstProducts;
     @FXML
-    private ComboBox cmbProducts;
-    @FXML
     private TextField txtProdName, txtProdNameEdit;
     @FXML
     private Button btnProductDelete;
@@ -47,16 +45,23 @@ public class ProductsController {
             Connection conn = MySQL.getMySQLConnection();
             Statement stmt = conn.createStatement();
 
-
-            // Display values for Products tab
             ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
             ArrayList listOfProducts = new ArrayList();
             while (rsProducts.next()) {
                 listOfProducts.add(rsProducts.getString(2));
             }
             ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-            //cmbProducts.getItems().addAll(intList);
             lstProducts.setItems(intList);
+
+            lstProducts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String o, String t1) {
+                    btnProductEdit.setDisable(false);
+                    btnProductDelete.setDisable(false);
+                    txtProdNameEdit.setText(t1);
+                }
+            });
+
 
             conn.close();
         } catch (
@@ -90,7 +95,6 @@ public class ProductsController {
                     listOfProducts.add(rsProducts.getString(2));
                 }
                 ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-                //cmbProducts.getItems().addAll(intList);
                 lstProducts.setItems(intList);
             }
 
@@ -99,5 +103,28 @@ public class ProductsController {
             new Alert(Alert.AlertType.ERROR,
                     "An SQL Exception occurred: " + ex.getMessage(), ButtonType.OK).showAndWait();
         }
+    }
+    @FXML
+    private void handleProductEdit(ActionEvent event) throws SQLException {
+        MySQLConnectionData MySQL = new MySQLConnectionData();
+        Connection conn = MySQL.getMySQLConnection();
+        String sql = "update products set ProdName = ? where ProductId = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+//        stmt.setString(1, txtProdNameEdit.getText());
+//        Object o = lstProducts.getSelectionModel().getSelectedItem();
+//        String s = o.toString();
+//        int i = Integer.parseInt(s);
+//        stmt.setInt(2, i);
+//        if (stmt.executeUpdate() > 0)
+//        {
+//            new Alert(Alert.AlertType.INFORMATION,
+//                    "Product updated successfully", ButtonType.CLOSE).showAndWait();
+//        }
+//        else
+//        {
+//            new Alert(Alert.AlertType.WARNING,
+//                    "Product update failed", ButtonType.CLOSE).showAndWait();
+//        }
+        conn.close();
     }
 }
