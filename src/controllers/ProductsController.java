@@ -55,7 +55,6 @@ public class ProductsController {
             Connection conn = MySQL.getMySQLConnection();
             Statement stmt = conn.createStatement();
 
-
             // Display values for Products tab
             ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
             ArrayList listOfProducts = new ArrayList();

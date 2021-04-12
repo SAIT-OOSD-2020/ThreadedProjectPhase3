@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import data.MySQLConnectionData;
+import dataValidation.Validator;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -52,14 +53,10 @@ public class ProductAdd {
             public void handle(MouseEvent mouseEvent) {
                 String newProdName = txtNewProdName.getText();
 
-                if (newProdName.isEmpty()) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
+                Validator valid = new Validator();
+                boolean isvalid = valid.IsPresentValidator(txtNewProdName, "Product Name");// && valid.IsNonNumericValidator(txtProdName, "Product Name");
 
-                    alert.setContentText("Product name cannot be empty!");
-
-                    alert.showAndWait();
-                } else {
+                if (isvalid) {
                     try {
                         MySQLConnectionData MySQL = new MySQLConnectionData();
                         Connection conn = MySQL.getMySQLConnection();
@@ -85,8 +82,8 @@ public class ProductAdd {
                     Stage stage = (Stage) btnAddNewProduct.getScene().getWindow();
 
                     stage.close();
-
                 }
+
             }
         });
 
