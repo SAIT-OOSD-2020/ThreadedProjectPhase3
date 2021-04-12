@@ -28,9 +28,6 @@ public class SuppliersController {
     @FXML
     protected ListView lstSuppliers;
 
-//    @FXML
-//    private ComboBox cmbSuppliers;
-
     @FXML
     private Button btnAdd, btnEdit, btnDelete;
 
@@ -41,8 +38,6 @@ public class SuppliersController {
 
     private SupplierEdit childEditController;
 
-//    private List<String> supplierNameList;
-    
     protected ObservableList<Supplier> fullSupplierList;
 
 
@@ -69,8 +64,6 @@ public class SuppliersController {
         txtSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-
-//                loadSupplierData();
 
                 // When the textField is empty.
                 if (t1.isEmpty()){
@@ -102,15 +95,7 @@ public class SuppliersController {
                         btnEdit.setDisable(false);
                         btnDelete.setDisable(false);
                     }
-
-//                    if (lstSuppliers.getSelectionModel().isEmpty()){
-//                        btnEdit.setDisable(true);
-//                        btnDelete.setDisable(true);
-//                    }
-
                 }
-
-
             }
         });
     }
@@ -228,17 +213,6 @@ public class SuppliersController {
                 popupStage.setScene(new Scene(root));
                 popupStage.setTitle("Add New Supplier");
 
-//                popupStage.setOnHidden(new EventHandler<WindowEvent>() {
-//                    @Override
-//                    public void handle(WindowEvent windowEvent) {
-////                        loadSupplierData();
-//
-////                        // Set focus to new added supplier.
-////                        lstSuppliers.scrollTo(lstSuppliers.getItems().size() - 1);
-////                        lstSuppliers.getSelectionModel().select(lstSuppliers.getItems().size() - 1);
-//                    }
-//                });
-
                 popupStage.show();
 
             }
@@ -261,13 +235,9 @@ public class SuppliersController {
             ResultSet rsSuppliers = stmt.executeQuery("SELECT * FROM Suppliers");
             fullSupplierList = FXCollections.observableArrayList();
 
-//            ArrayList listOfSuppliers = new ArrayList();
             while (rsSuppliers.next()) {
                 fullSupplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
-//                listOfSuppliers.add(rsSuppliers.getString(2));
             }
-//            ObservableList<Integer> sup = FXCollections.observableArrayList(listOfSuppliers);
-//            cmbSuppliers.getItems().addAll(sup);
 
             lstSuppliers.setItems(fullSupplierList);
 
@@ -276,12 +246,5 @@ public class SuppliersController {
                 SQLException throwables) {
             throwables.printStackTrace();
         }
-
-//        // Load the name list for searching.
-//        supplierNameList = new ArrayList<>();
-//        for(Object supplier: lstSuppliers.getItems()){
-//            Supplier sup = (Supplier) supplier;
-//            supplierNameList.add(sup.getSupName());
-//        }
     }
 }

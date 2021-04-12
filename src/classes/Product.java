@@ -27,4 +27,9 @@ public class Product {
     public void setProdName(String prodName) {
         this.ProdName.set(prodName);
     }
+
+    @Override
+    public String toString() {
+        return ProdName.getValue();
+    }
 }
