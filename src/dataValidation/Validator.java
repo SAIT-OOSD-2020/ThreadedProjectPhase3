@@ -8,14 +8,13 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
-
-
-
     public boolean IsPresentValidator(TextField tf, String textFieldName){
         if (tf.getText() == null || tf.getText().equals(""))
         {
-            new Alert(Alert.AlertType.INFORMATION,
-                    "Please enter a value for " + textFieldName, ButtonType.CLOSE).showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Please enter a value for " + textFieldName);
+            alert.showAndWait();
             return false;
         }
         else return true;
@@ -33,8 +32,4 @@ public class Validator {
         }
         else return true;
     }
-
-//    public boolean INumericValidator(TextField tf, String textFieldName){
-//
-//    }
 }

@@ -239,7 +239,6 @@ public class SuppliersController {
                 fullSupplierList.add(new Supplier(rsSuppliers.getInt(1), rsSuppliers.getString(2)));
             }
 
-
             lstSuppliers.setItems(fullSupplierList);
 
             conn.close();

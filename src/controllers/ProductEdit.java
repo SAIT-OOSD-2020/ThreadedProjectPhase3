@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import classes.Product;
 import classes.Supplier;
 import data.MySQLConnectionData;
+import dataValidation.Validator;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -49,12 +50,10 @@ public class ProductEdit {
                 int productId = Integer.parseInt(txtProductId.getText());
                 String prodName = txtProdName.getText();
 
-                if (prodName.isEmpty()){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setContentText("Product name cannot be empty!");
-                    alert.showAndWait();
-                } else {
+                Validator valid = new Validator();
+                boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name");// && valid.IsNonNumericValidator(txtProdName, "Product Name");
+
+                if (isvalid) {
                     try {
                         MySQLConnectionData MySQL = new MySQLConnectionData();
                         Connection conn = MySQL.getMySQLConnection();
@@ -77,9 +76,6 @@ public class ProductEdit {
                     }
 
                     parentProductCtrl.loadProductData();
-                    // Set focus to new edited supplier.
-                    //parentProductCtrl.lstProducts.scrollTo(selectedProductIndex);
-                    //parentProductCtrl.lstProducts.getSelectionModel().select(selectedProductIndex);
 
                     Stage stage = (Stage) btnEditProduct.getScene().getWindow();
 

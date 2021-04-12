@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.BookingsController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookingsController">
     <children>
-        <TableView fx:id="tblBookings" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+        <TableView fx:id="tblBookings" layoutX="14.0" layoutY="14.0" prefHeight="252.0" prefWidth="687.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1"/>
-                <TableColumn prefWidth="75.0" text="C2"/>
+                <TableColumn prefWidth="75.0" text="Booking No." />
+                <TableColumn prefWidth="75.0" text="Booking Date" />
+            <TableColumn prefWidth="75.0" text="Description" />
+            <TableColumn prefWidth="75.0" text="Destination" />
+            <TableColumn prefWidth="75.0" text="Trip Start" />
+            <TableColumn prefWidth="75.0" text="Trip End" />
+            <TableColumn prefWidth="75.0" text="Base Price" />
+            <TableColumn prefWidth="75.0" text="Agency Commission" />
+            <TableColumn prefWidth="75.0" text="Traveler Count" />
+            <TableColumn prefWidth="75.0" text="CustomerId" />
             </columns>
         </TableView>
     </children>

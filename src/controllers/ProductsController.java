@@ -40,6 +40,7 @@ public class ProductsController {
     private ProductAdd childAddController;
 
     private ProductEdit childEditController;
+
     protected ObservableList<Product> fullProductList;
 
     @FXML
