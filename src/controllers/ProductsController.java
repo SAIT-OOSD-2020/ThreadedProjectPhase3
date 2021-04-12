@@ -130,6 +130,7 @@ public class ProductsController {
                 popupStage.show();
             }
         });
+
     }
 
     private void btnProductDeleteClickedEvent() {
