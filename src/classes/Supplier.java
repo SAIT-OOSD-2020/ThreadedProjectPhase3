@@ -28,8 +28,13 @@ public class Supplier {
         this.SupName.set(supName);
     }
 
+//    @Override
+//    public String toString() {
+//        return SupplierId.getValue() + "\t " + SupName.getValue();
+//    }
+
     @Override
     public String toString() {
-        return SupplierId.getValue() + "\t " + SupName.getValue();
+        return SupName.getValue();
     }
 }
