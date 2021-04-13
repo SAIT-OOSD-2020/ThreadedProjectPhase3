@@ -58,7 +58,6 @@ public class BookingsController {
 
             int colCount = rsmd.getColumnCount();
 
-            TableColumn temp;
             tblBookings.getColumns().clear();
 
             for(int i=0;i<colCount;i++){

@@ -49,6 +49,12 @@ public class CustomerController {
     @FXML // fx:id="editButton"
     private Button editButton; // Value injected by FXMLLoader
 
+    @FXML // fx:id="editButton"
+    private Button addButton; // Value injected by FXMLLoader
+
+    @FXML // fx:id="editButton"
+    private Button deleteButton; // Value injected by FXMLLoader
+
 
 
     int selectedIndex;
@@ -186,6 +192,43 @@ public class CustomerController {
 
                 }
             });
+        addButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("../layout/customersEdit.fxml"));
+                    /*
+                     * if "fx:controller" is not set in fxml
+                     * fxmlLoader.setController(NewWindowController);
+                     */
+                    fxmlLoader.setController(new CustomerAddController());
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = new Stage();
+                    stage.setTitle("Add Customer");
+                    stage.setScene(scene);
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.show();
+
+
+                    stage.setOnHiding(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent windowEvent) {
+                            fillCustomerTable();
+                            tableViewCustomers.getSelectionModel().select(selectedIndex);
+
+//                                tableViewCustomers.refresh();
+                        }
+                    });
+
+                } catch (IOException e) {
+                    Logger logger = Logger.getLogger(getClass().getName());
+                    logger.log(Level.SEVERE, "Failed to create new Window.", e);
+                }
+
+
+            }
+        });
 
     }
 
