@@ -195,7 +195,32 @@ public class CustomerController {
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("../layout/customersEdit.fxml"));
 
+                    fxmlLoader.setController(new CustomerAddController());
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = new Stage();
+                    stage.setTitle("Edit Customer");
+                    stage.setScene(scene);
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.show();
+
+
+//                    stage.setOnHiding(new EventHandler<WindowEvent>() {
+//                        @Override
+//                        public void handle(WindowEvent windowEvent) {
+//                            fillCustomerTable();
+//                            tableViewCustomers.getSelectionModel().select(selectedIndex);
+//
+//                        }
+//                    });
+
+                } catch (IOException e) {
+                    Logger logger = Logger.getLogger(getClass().getName());
+                    logger.log(Level.SEVERE, "Failed to create new Window.", e);
+                }
 
 
             }

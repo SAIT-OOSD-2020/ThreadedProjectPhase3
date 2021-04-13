@@ -133,41 +133,14 @@ public class CustomerAddController {
                 try {
                     MySQLConnectionData MySQL = new MySQLConnectionData();
                     Connection conn = MySQL.getMySQLConnection();
-//                    String sql =
-//                            "INSERT INTO Customers(`CustomerId`, `CustFirstName`, `CustLastName`, `CustAddress`, " +
-//                                    "`CustCity`, `CustProv`,`CustPostal`, `CustCountry`, `CustHomePhone`, `CustBusPhone`, `CustEmail`, `AgentId`) VALUES\n" +
-//                                    "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                     String sql =
-                            "INSERT INTO Customers(CustomerId, CustFirstName, CustLastName, CustAddress, " +
-                                    "CustCity, CustProv,CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) VALUES\n" +
-                                    "("+nextId+","+ txtCustFirstName.getText()+","+ txtCustLastName.getText()+","+txtCustAddress.getText()+
-                                    ","+txtCustCity.getText()+","+ txtCustProv.getText()+","+ txtCustPostal.getText()+","+ txtCustCountry.getText()+","
-                                    + txtCustHomePhone.getText()+","+ txtCustBusPhone.getText()+","+ txtCustEmail.getText()+","+ Integer.parseInt(txtAgentId.getText())+")";
-
-//                    String sql =
-//                            "INSERT INTO Customers VALUES\n" +
-//                                    "("+nextId+","+ txtCustFirstName.getText()+","+ txtCustLastName.getText()+","+txtCustAddress.getText()+
-//                                    ","+txtCustCity.getText()+","+ txtCustProv.getText()+","+ txtCustPostal.getText()+","+ txtCustCountry.getText()+","
-//                                    + txtCustHomePhone.getText()+","+ txtCustBusPhone.getText()+","+ txtCustEmail.getText()+","+ Integer.parseInt(txtAgentId.getText())+")";
+                            "INSERT INTO customers VALUES\n" +
+                                    "("+nextId+",'"+ txtCustFirstName.getText()+"','"+ txtCustLastName.getText()+"','"+txtCustAddress.getText()+
+                                    "','"+txtCustCity.getText()+"','"+ txtCustProv.getText()+"','"+ txtCustPostal.getText()+"','"+ txtCustCountry.getText()+"','"
+                                    + txtCustHomePhone.getText()+"','"+ txtCustBusPhone.getText()+"','"+ txtCustEmail.getText()+"','"+ Integer.parseInt(txtAgentId.getText())+"')";
 
                         System.out.println(sql);
                     Statement stmt = conn.createStatement();
-                    //int UpdatedRows = stmt.executeUpdate(sql);
-                    //Alert alert;
-
-//                    PreparedStatement stmt = conn.prepareStatement(sql);
-//                    stmt.setInt(1, nextId);
-//                    stmt.setString(2, txtCustFirstName.getText());
-//                    stmt.setString(3, txtCustLastName.getText());
-//                    stmt.setString(4, txtCustAddress.getText());
-//                    stmt.setString(5, txtCustCity.getText());
-//                    stmt.setString(6, txtCustProv.getText());
-//                    stmt.setString(7, txtCustPostal.getText());
-//                    stmt.setString(8, txtCustCountry.getText());
-//                    stmt.setString(9, txtCustHomePhone.getText());
-//                    stmt.setString(10, txtCustBusPhone.getText());
-//                    stmt.setString(11, txtCustEmail.getText());
-//                    stmt.setInt(12, Integer.parseInt(txtAgentId.getText()));
                     int UpdatedRows = stmt.executeUpdate(sql);
                     Alert alert;
 

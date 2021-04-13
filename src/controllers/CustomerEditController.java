@@ -82,6 +82,10 @@ public class CustomerEditController {
     @FXML // fx:id="btnDeleteCustomer"
     private Button btnDeleteCustomer; // Value injected by FXMLLoader
 
+    public CustomerEditController() {
+
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert textFieldsCustomers != null : "fx:id=\"textFieldsCustomers\" was not injected: check your FXML file 'customersEdit.fxml'.";
