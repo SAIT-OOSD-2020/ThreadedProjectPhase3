@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class MySQLConnectionData {
-    private final String url  = "jdbc:mysql://localhost:3306/travelexperts";
+    private final String url  = "jdbc:mysql://localhost:3306/travelexperts?zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8";
     private final String username = "root";
     private final String password = "";
 
