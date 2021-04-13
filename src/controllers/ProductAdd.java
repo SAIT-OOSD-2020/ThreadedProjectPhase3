@@ -65,7 +65,6 @@ public class ProductAdd {
                         PreparedStatement stmt = conn.prepareStatement(sql);
                         stmt.setInt(1, nextId);
                         stmt.setString(2, newProdName);
-
                         int rowsAffected = stmt.executeUpdate();
                         if (rowsAffected > 0) {
                             System.out.println("Insert successfully");
