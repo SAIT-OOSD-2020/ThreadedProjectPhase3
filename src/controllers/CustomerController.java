@@ -198,28 +198,24 @@ public class CustomerController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("../layout/customersEdit.fxml"));
-                    /*
-                     * if "fx:controller" is not set in fxml
-                     * fxmlLoader.setController(NewWindowController);
-                     */
+
                     fxmlLoader.setController(new CustomerAddController());
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
-                    stage.setTitle("Add Customer");
+                    stage.setTitle("Edit Customer");
                     stage.setScene(scene);
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
 
 
-                    stage.setOnHiding(new EventHandler<WindowEvent>() {
-                        @Override
-                        public void handle(WindowEvent windowEvent) {
-                            fillCustomerTable();
-                            tableViewCustomers.getSelectionModel().select(selectedIndex);
-
-//                                tableViewCustomers.refresh();
-                        }
-                    });
+//                    stage.setOnHiding(new EventHandler<WindowEvent>() {
+//                        @Override
+//                        public void handle(WindowEvent windowEvent) {
+//                            fillCustomerTable();
+//                            tableViewCustomers.getSelectionModel().select(selectedIndex);
+//
+//                        }
+//                    });
 
                 } catch (IOException e) {
                     Logger logger = Logger.getLogger(getClass().getName());

@@ -47,8 +47,11 @@ public class CustomerBookingsController {
 
 
             // Display values for Customers tab
-            ResultSet rsBookings = stmt.executeQuery("SELECT bd.BookingId, bd.BookingDetailId, bd.Description, bd" +
-                    ".Destination, bd.BasePrice, bd.AgencyCommission FROM bookingDetails as bd Join bookings as b on " +
+            ResultSet rsBookings = stmt.executeQuery("SELECT b.BookingNo, b.BookingDate, bd.Description, bd" +
+                    ".Destination,bd.TripStart, bd.TripEnd, bd.BasePrice,bd.AgencyCommission, (bd.BasePrice+bd" +
+                    ".AgencyCommission) as TotalPrice FROM bookingDetails as bd Join " +
+                    "bookings " +
+                    "as b on " +
                     "bd.BookingId = b" +
                     ".BookingId where CustomerId = "+customerId);
             ResultSetMetaData rsmd = rsBookings.getMetaData();
