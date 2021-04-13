@@ -27,4 +27,14 @@ public class Supplier {
     public void setSupName(String supName) {
         this.SupName.set(supName);
     }
+
+//    @Override
+//    public String toString() {
+//        return SupplierId.getValue() + "\t " + SupName.getValue();
+//    }
+
+    @Override
+    public String toString() {
+        return SupName.getValue();
+    }
 }

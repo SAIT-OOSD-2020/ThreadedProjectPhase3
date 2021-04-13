@@ -1,38 +1,35 @@
 package controllers;
 
-import classes.Package;
+
 import classes.Product;
+import classes.Supplier;
 import data.MySQLConnectionData;
-import dataValidation.Validator;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ProductsController {
 
     // Controls
-    @FXML
-    private TableView<Product> tblProducts;
-    @FXML
-    private TableColumn<Product, Integer> colProductId;
-    @FXML
-    private TableColumn<Product, String> colProdName;
+
     @FXML
     private ListView lstProducts;
-    @FXML
-    private ComboBox cmbProducts;
-    @FXML
-    private TextField txtProdName;
     @FXML
     private Button btnProductDelete;
     @FXML
@@ -40,23 +37,36 @@ public class ProductsController {
     @FXML
     private Button btnProductAdd;
 
+    private ProductAdd childAddController;
+
+    private ProductEdit childEditController;
+
+    protected ObservableList<Product> fullProductList;
+
     @FXML
     void initialize() {
+
+        loadProductData();
+        lstProducts.getSelectionModel().select(0);
+        ProductsController currCtrl = this;
+        btnProductAddClickedEvent();
+        btnProductEditClickedEvent();
+        btnProductDeleteClickedEvent();
+    }
+
+    protected void loadProductData() {
         try {
             MySQLConnectionData MySQL = new MySQLConnectionData();
             Connection conn = MySQL.getMySQLConnection();
             Statement stmt = conn.createStatement();
 
-
-            // Display values for Products tab
             ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
-            ArrayList listOfProducts = new ArrayList();
+            fullProductList = FXCollections.observableArrayList();
+
             while (rsProducts.next()) {
-                listOfProducts.add(rsProducts.getString(2));
+                fullProductList.add(new Product(rsProducts.getInt(1), rsProducts.getString(2)));
             }
-            ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-            cmbProducts.getItems().addAll(intList);
-            lstProducts.setItems(intList);
+            lstProducts.setItems(fullProductList);
 
             conn.close();
         } catch (
@@ -65,39 +75,118 @@ public class ProductsController {
         }
     }
 
-    @FXML
-    private void handleProductAdd(ActionEvent event) {
-        try {
-            MySQLConnectionData MySQL = new MySQLConnectionData();
-            Connection conn = MySQL.getMySQLConnection();
-            String sql = "insert into products (ProdName) values (?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            Validator valid = new Validator();
-            boolean isvalid = valid.IsPresentValidator(txtProdName, "Product Name");// && valid.IsNonNumericValidator(txtProdName, "Product Name");
 
-            if (isvalid) {
-                stmt.setString(1, txtProdName.getText());
-                if (stmt.executeUpdate() > 0) {
-                    new Alert(Alert.AlertType.INFORMATION,
-                            "Product inserted successfully", ButtonType.CLOSE).showAndWait();
-                } else {
-                    new Alert(Alert.AlertType.WARNING,
-                            "Product insert failed", ButtonType.CLOSE).showAndWait();
+    private void btnProductAddClickedEvent() {
+        ProductsController currCtrl = this;
+
+        btnProductAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../layout/productAdd.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                ResultSet rsProducts = stmt.executeQuery("SELECT * FROM Products");
-                ArrayList listOfProducts = new ArrayList();
-                while (rsProducts.next()) {
-                    listOfProducts.add(rsProducts.getString(2));
-                }
-                ObservableList<Integer> intList = FXCollections.observableArrayList(listOfProducts);
-                cmbProducts.getItems().addAll(intList);
-                lstProducts.setItems(intList);
+                childAddController = loader.getController();
+                childAddController.setParentController(currCtrl);
+
+
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.setScene(new Scene(root));
+                popupStage.setTitle("Add New Product");
+
+                popupStage.show();
+
             }
-
-            conn.close();
-        } catch (SQLException ex) {
-            new Alert(Alert.AlertType.ERROR,
-                    "An SQL Exception occurred: " + ex.getMessage(), ButtonType.OK).showAndWait();
-        }
+        });
     }
+
+    private void btnProductEditClickedEvent() {
+        ProductsController currCtrl = this;
+        btnProductEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../layout/productEdit.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                childEditController = loader.getController();
+                childEditController.setParentController(currCtrl);
+                childEditController.passCurrProduct(fullProductList.indexOf(lstProducts.getSelectionModel().getSelectedItem()));
+
+
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
+                popupStage.setScene(new Scene(root));
+                popupStage.setTitle("Edit Product");
+                popupStage.show();
+            }
+        });
+
+    }
+
+    private void btnProductDeleteClickedEvent() {
+        btnProductDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println(lstProducts.getSelectionModel().getSelectedIndex());
+                Product selectedProd = (Product) lstProducts.getSelectionModel().getSelectedItem();
+                int selectedProdIndex = lstProducts.getSelectionModel().getSelectedIndex();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Product");
+                alert.setHeaderText("This will delete the selected product from the database.");
+                alert.setContentText("Please confirm deletion of: " + selectedProd);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    // ... user chose OK
+                    try {
+                        MySQLConnectionData MySQL = new MySQLConnectionData();
+                        Connection conn = MySQL.getMySQLConnection();
+
+                        String sql = "DELETE FROM Products \n" +
+                                "WHERE `ProductId` = ?;";
+
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setInt(1, selectedProd.getProductId());
+
+                        int rowsAffected = stmt.executeUpdate();
+                        if (rowsAffected > 0) {
+                            System.out.println("Delete successfully");
+                        }
+
+                        loadProductData();
+
+                        int newSupSize = lstProducts.getItems().size();
+                        if (newSupSize == selectedProdIndex){
+                            // If the last product is deleted, focus on the last one.
+                            lstProducts.scrollTo(newSupSize-1);
+                            lstProducts.getSelectionModel().select(newSupSize-1);
+                        } else {
+                            lstProducts.scrollTo(selectedProdIndex);
+                            lstProducts.getSelectionModel().select(selectedProdIndex);
+                        }
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                } else {
+                    // ... user chose CANCEL or closed the dialog
+                }
+            }
+        });
+
+    }
+
+
+
 }
