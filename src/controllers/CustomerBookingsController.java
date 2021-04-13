@@ -47,7 +47,10 @@ public class CustomerBookingsController {
 
 
             // Display values for Customers tab
-            ResultSet rsBookings = stmt.executeQuery("SELECT bd.BookingId, bd.BookingDetailId, bd.Description, bd.Destination FROM bookingDetails as bd Join bookings as b on bd.BookingId = b.BookingId where CustomerId = "+customerId);
+            ResultSet rsBookings = stmt.executeQuery("SELECT bd.BookingId, bd.BookingDetailId, bd.Description, bd" +
+                    ".Destination, bd.BasePrice, bd.AgencyCommission FROM bookingDetails as bd Join bookings as b on " +
+                    "bd.BookingId = b" +
+                    ".BookingId where CustomerId = "+customerId);
             ResultSetMetaData rsmd = rsBookings.getMetaData();
             ObservableList<String> bookings;
             ObservableList<ObservableList> bookingsList = FXCollections.observableArrayList();
