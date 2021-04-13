@@ -98,7 +98,6 @@ public class PackagesController {
                         rsPackages.getDouble(7)));
                 listOfPackages.add(rsPackages.getString(2));
             }
-            //colPackageId.setCellValueFactory(new PropertyValueFactory<>("PackageId"));
             colPkgName.setCellValueFactory(new PropertyValueFactory<>("PkgName"));
             colPkgStartDate.setCellValueFactory(new PropertyValueFactory<>("PkgStartDate"));
             colPkgEndDate.setCellValueFactory(new PropertyValueFactory<>("PkgEndDate"));
