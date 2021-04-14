@@ -134,10 +134,16 @@ public class CustomerAddController {
                 try {
                     MySQLConnectionData MySQL = new MySQLConnectionData();
                     Connection conn = MySQL.getMySQLConnection();
+//                    String sql =
+//                            "INSERT INTO customers VALUES\n" +
+//                                    "("+nextId+",'"+ txtCustFirstName.getText()+"','"+ txtCustLastName.getText()+"','"+txtCustAddress.getText()+
+//                                    "','"+txtCustCity.getText()+"','"+ txtCustProv.getText()+"','"+ txtCustPostal.getText()+"','"+ txtCustCountry.getText()+"','"
+//                                    + txtCustHomePhone.getText()+"','"+ txtCustBusPhone.getText()+"','"+ txtCustEmail.getText()+"','"+ Integer.parseInt(txtAgentId.getText())+"')";
                     String sql =
                             "INSERT INTO customers VALUES\n" +
                                     "("+nextId+",'"+ txtCustFirstName.getText()+"','"+ txtCustLastName.getText()+"','"+txtCustAddress.getText()+
-                                    "','"+txtCustCity.getText()+"','"+ txtCustProv.getText()+"','"+ txtCustPostal.getText()+"','"+ txtCustCountry.getText()+"','"
+                                    "','"+txtCustCity.getText()+"','"+ cmbProv.getValue()+"','"+ txtCustPostal.getText()+
+                                    "','"+ txtCustCountry.getText()+"','"
                                     + txtCustHomePhone.getText()+"','"+ txtCustBusPhone.getText()+"','"+ txtCustEmail.getText()+"','"+ Integer.parseInt(txtAgentId.getText())+"')";
 
                         System.out.println(sql);
