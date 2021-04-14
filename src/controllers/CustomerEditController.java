@@ -89,23 +89,6 @@ public class CustomerEditController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert textFieldsCustomers != null : "fx:id=\"textFieldsCustomers\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustFirstName != null : "fx:id=\"txtCustFirstName\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustLastName != null : "fx:id=\"txtCustLastName\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustAddress != null : "fx:id=\"txtCustAddress\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustCity != null : "fx:id=\"txtCustCity\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustProv != null : "fx:id=\"txtCustProv\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustPostal != null : "fx:id=\"txtCustPostal\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustCountry != null : "fx:id=\"txtCustCountry\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustHomePhone != null : "fx:id=\"txtCustHomePhone\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustBusPhone != null : "fx:id=\"txtCustBusPhone\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtCustEmail != null : "fx:id=\"txtCustEmail\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert txtAgentId != null : "fx:id=\"txtAgentId\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert btnCancelCustomer != null : "fx:id=\"btnCancelCustomer\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert btnSaveCustomer != null : "fx:id=\"btnSaveCustomer\" was not injected: check your FXML file 'customersEdit.fxml'.";
-        assert btnDeleteCustomer != null : "fx:id=\"btnDeleteCustomer\" was not injected: check your FXML file 'customersEdit.fxml'.";
-
-
 
         txtCustFirstName.setText(cust.getCustFirstName());
         txtCustLastName.setText(cust.getCustLastName());
@@ -113,6 +96,8 @@ public class CustomerEditController {
         txtCustCity.setText(cust.getCustCity());
         txtCustProv.setText(cust.getCustProv());
         txtCustPostal.setText(cust.getCustPostal());
+
+        cmbProv.setValue(cust.getCustProv());
 
         txtCustCountry.setText(cust.getCustCountry());
         txtCustHomePhone.setText(cust.getCustHomePhone());
@@ -170,7 +155,6 @@ public class CustomerEditController {
                     "AgentId = '"+ txtAgentId.getText()+"'";
 
                     sql+=" where CustomerId = "+cust.getCustomerId()+"";
-//                    System.out.println(sql);
 
                     Statement stmt = conn.createStatement();
                     int UpdatedRows = stmt.executeUpdate(sql);
