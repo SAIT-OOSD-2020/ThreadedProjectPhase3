@@ -94,7 +94,7 @@ public class CustomerEditController {
         txtCustLastName.setText(cust.getCustLastName());
         txtCustAddress.setText(cust.getCustAddress());
         txtCustCity.setText(cust.getCustCity());
-        txtCustProv.setText(cust.getCustProv());
+        //txtCustProv.setText(cust.getCustProv());
         txtCustPostal.setText(cust.getCustPostal());
 
         cmbProv.setValue(cust.getCustProv());

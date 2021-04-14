@@ -64,10 +64,6 @@ public class CustomerController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert tableViewCustomers != null : "fx:id=\"tableViewCustomers\" was not injected: check your FXML file 'customers.fxml'.";
-        assert editButton != null : "fx:id=\"editButton\" was not injected: check your FXML file 'customers.fxml'.";
-        assert btnViewBookings != null : "fx:id=\"btnViewBookings\" was not injected: check your FXML file 'customers.fxml'.";
-
 
 
 
