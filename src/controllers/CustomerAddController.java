@@ -9,10 +9,7 @@ import data.MySQLConnectionData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -79,6 +76,10 @@ public class CustomerAddController {
 
     @FXML // fx:id="btnDeleteCustomer"
     private Button btnDeleteCustomer; // Value injected by FXMLLoader
+
+    @FXML
+//    private ComboBox<?> cmbProv;
+    private ComboBox cmbProv;
 
     private int nextId;
 
@@ -167,6 +168,6 @@ public class CustomerAddController {
             }
         });
 
-
+        //cmbProv.getItems().add("AB", "BC");
     }
 }
