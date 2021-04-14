@@ -64,7 +64,7 @@ public class CustomerController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-
+        tableViewCustomers.getSelectionModel().selectFirst();
 
 
 //        TableColumn colCustomerId =new TableColumn<>(),colAgentId= null;
@@ -176,7 +176,6 @@ public class CustomerController {
                                 fillCustomerTable();
                                 tableViewCustomers.getSelectionModel().select(selectedIndex);
 
-//                                tableViewCustomers.refresh();
                             }
                         });
 
@@ -198,20 +197,19 @@ public class CustomerController {
                     fxmlLoader.setController(new CustomerAddController());
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
-                    stage.setTitle("Edit Customer");
+                    stage.setTitle("Add Customer");
                     stage.setScene(scene);
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
 
+                    stage.setOnHiding(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent windowEvent) {
+                            fillCustomerTable();
+                            tableViewCustomers.getSelectionModel().select(selectedIndex);
 
-//                    stage.setOnHiding(new EventHandler<WindowEvent>() {
-//                        @Override
-//                        public void handle(WindowEvent windowEvent) {
-//                            fillCustomerTable();
-//                            tableViewCustomers.getSelectionModel().select(selectedIndex);
-//
-//                        }
-//                    });
+                        }
+                    });
 
                 } catch (IOException e) {
                     Logger logger = Logger.getLogger(getClass().getName());
