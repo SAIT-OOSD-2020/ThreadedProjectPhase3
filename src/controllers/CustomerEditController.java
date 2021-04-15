@@ -83,9 +83,7 @@ public class CustomerEditController {
 //    private ComboBox<?> cmbProv;
     private ComboBox cmbProv;
 
-    public CustomerEditController() {
 
-    }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {

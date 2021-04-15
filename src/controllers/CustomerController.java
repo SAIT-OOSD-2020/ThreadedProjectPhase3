@@ -192,7 +192,7 @@ public class CustomerController {
             public void handle(ActionEvent actionEvent) {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("../layout/customersEdit.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("../layout/customersAdd.fxml"));
 
                     fxmlLoader.setController(new CustomerAddController());
                     Scene scene = new Scene(fxmlLoader.load());
