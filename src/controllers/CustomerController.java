@@ -222,13 +222,14 @@ public class CustomerController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 //Customer cust = new Customer(tableViewCustomers.getSelectionModel().getSelectedIndex());
-                System.out.println(tableViewCustomers.getSelectionModel().getSelectedIndex());
-
-                Alert alert = new Alert(Alert.AlertType.WARNING,"Are you Sure, you want to delete this Customer?",ButtonType.CANCEL,ButtonType.YES);
-                Optional<ButtonType> result =  alert.showAndWait();
-
                 Customer customer = tableViewCustomers.getSelectionModel().getSelectedItem();
                 System.out.println(customer.getCustomerId());
+                Alert alert = new Alert(Alert.AlertType.WARNING,
+                        "Are you sure, you want to delete customer " + customer.getCustFirstName() + " " + customer.getCustLastName() + "?",
+                        ButtonType.CANCEL,ButtonType.YES);
+                Optional<ButtonType> result =  alert.showAndWait();
+
+
 
                 if(result.get() == ButtonType.YES){
                     try {
@@ -242,9 +243,12 @@ public class CustomerController {
                         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Customer has been deleted", ButtonType.OK);
                         conn.close();
 
-//                        alert2.show();
-//                        Stage stage = (Stage) btnSaveCustomer.getScene().getWindow();
-//                        stage.close();
+                        alert2.show();
+
+                        fillCustomerTable();
+                        tableViewCustomers.getSelectionModel().select(selectedIndex);
+
+
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();

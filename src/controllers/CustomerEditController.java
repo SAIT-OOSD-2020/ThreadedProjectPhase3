@@ -111,35 +111,6 @@ public class CustomerEditController {
             }
         });
 
-        btnDeleteCustomer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Alert alert = new Alert(Alert.AlertType.WARNING,"Are you Sure, you want to delete this Customer?",ButtonType.CANCEL,ButtonType.YES);
-                Optional<ButtonType> result =  alert.showAndWait();
-
-                if(result.get() == ButtonType.YES){
-                    try {
-                        MySQLConnectionData MySQL = new MySQLConnectionData();
-                        Connection conn = MySQL.getMySQLConnection();
-                        Statement stmt = conn.createStatement();
-
-                        String sql = "Delete FROM customers where CustomerId = "+cust.getCustomerId();
-                        stmt.executeUpdate(sql);
-
-                        Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Customer has been deleted", ButtonType.OK);
-                        conn.close();
-
-                        alert2.show();
-                        Stage stage = (Stage) btnSaveCustomer.getScene().getWindow();
-                        stage.close();
-
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                }
-            }
-        });
-
         btnSaveCustomer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
