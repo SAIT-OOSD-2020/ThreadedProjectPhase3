@@ -24,7 +24,7 @@ public class SupplierEdit {
     @FXML
     private Button btnSave, btnCancel;
 
-    private SuppliersController parentSupplierCtrl;
+    private Products_SuppliersController parentSupplierCtrl;
 
     private int selectedSupplierIndex = -1;
 
@@ -85,7 +85,7 @@ public class SupplierEdit {
         });
     }
 
-    public void setParentController(SuppliersController currCtrl) {
+    public void setParentController(Products_SuppliersController currCtrl) {
         parentSupplierCtrl = currCtrl;
     }
 

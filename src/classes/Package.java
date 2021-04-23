@@ -2,19 +2,20 @@ package classes;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import java.sql.Timestamp;
 
 import java.util.Date;
 
 public class Package {
     private SimpleIntegerProperty PackageId;
     private String PkgName;
-    private Date PkgStartDate;
-    private Date PkgEndDate;
+    private Timestamp PkgStartDate;
+    private Timestamp PkgEndDate;
     private String PkgDesc;
     private SimpleDoubleProperty PkgBasePrice;
     private SimpleDoubleProperty PkgAgencyCommission;
 
-    public Package(int packageId, String pkgName, Date pkgStartDate, Date pkgEndDate,
+    public Package(int packageId, String pkgName, Timestamp pkgStartDate, Timestamp pkgEndDate,
                    String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
         PackageId = new SimpleIntegerProperty(packageId);
         PkgName = pkgName;
@@ -45,19 +46,19 @@ public class Package {
         PkgName = pkgName;
     }
 
-    public Date getPkgStartDate() {
+    public Timestamp getPkgStartDate() {
         return PkgStartDate;
     }
 
-    public void setPkgStartDate(Date pkgStartDate) {
+    public void setPkgStartDate(Timestamp pkgStartDate) {
         PkgStartDate = pkgStartDate;
     }
 
-    public Date getPkgEndDate() {
+    public Timestamp getPkgEndDate() {
         return PkgEndDate;
     }
 
-    public void setPkgEndDate(Date pkgEndDate) {
+    public void setPkgEndDate(Timestamp pkgEndDate) {
         PkgEndDate = pkgEndDate;
     }
 

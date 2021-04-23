@@ -1,53 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-
-
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="475.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PackagesController">
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PackagesController">
     <children>
-        <TableView fx:id="tblPackages" layoutX="14.0" layoutY="14.0" prefHeight="209.0" prefWidth="534.0">
-            <columns>
-                <TableColumn fx:id="colPkgName" prefWidth="65.0" text="Name"/>
-                <TableColumn fx:id="colPkgStartDate" prefWidth="82.0" text="Start Date"/>
-                <TableColumn fx:id="colPkgEndDate" prefWidth="93.0" text="End Date"/>
-                <TableColumn fx:id="colPkgDesc" prefWidth="75.0" text="Description"/>
-                <TableColumn fx:id="colPkgBasePrice" prefWidth="75.0" text="Base Price"/>
-                <TableColumn fx:id="colPkgAgencyCommission" prefWidth="75.0" text="Commission"/>
-            </columns>
-        </TableView>
-        <Button fx:id="btnPackageDelete" alignment="CENTER" disable="true" layoutX="338.0" layoutY="421.0"
-                maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
-                prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Delete"
-                textAlignment="CENTER"/>
-        <Button fx:id="btnPackageEdit" alignment="CENTER" disable="true" layoutX="122.0" layoutY="421.0"
-                maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
-                onAction="#handlePackageUpdate" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;"
-                text="Edit" textAlignment="CENTER"/>
-        <Button fx:id="btnPackageAdd" alignment="CENTER" layoutX="14.0" layoutY="421.0" maxHeight="40.0"
-                maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0"
-                prefWidth="100.0" style="-fx-background-radius: 8px;" text="Add" textAlignment="CENTER"/>
-        <TextField fx:id="txtPkgStartDate" editable="false" layoutX="557.0" layoutY="160.0"/>
-        <TextField fx:id="txtPkgEndDate" editable="false" layoutX="766.0" layoutY="160.0"/>
-        <ComboBox fx:id="cmbPackages" layoutX="566.0" layoutY="72.0" prefWidth="150.0"/>
-        <TextField fx:id="txtPkgDesc" editable="false" layoutX="557.0" layoutY="251.0" prefHeight="26.0"
-                   prefWidth="360.0"/>
-        <TextField fx:id="txtPkgBasePrice" editable="false" layoutX="557.0" layoutY="339.0"/>
-        <TextField fx:id="txtPkgAgencyCommission" editable="false" layoutX="766.0" layoutY="339.0"/>
-        <Button fx:id="btnPackageSave" alignment="CENTER" disable="true" layoutX="231.0" layoutY="421.0"
-                maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false"
-                prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Save"
-                textAlignment="CENTER"/>
-        <Label layoutX="557.0" layoutY="130.0" text="Start Date"/>
-        <Label layoutX="766.0" layoutY="130.0" text="End Date"/>
-        <Label layoutX="557.0" layoutY="223.0" text="Description"/>
-        <Label layoutX="556.0" layoutY="308.0" text="Base Price"/>
-        <Label layoutX="762.0" layoutY="308.0" text="Commission"/>
+      <VBox prefHeight="568.0" prefWidth="1000.0">
+         <children>
+              <HBox prefHeight="568.0" prefWidth="1000.0">
+                  <children>
+                        <TableView fx:id="tblPackages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="940.0">
+                            <columns>
+                                <TableColumn fx:id="colPkgName" prefWidth="120.0" text="Name" />
+                                <TableColumn fx:id="colPkgStartDate" text="Start Date" />
+                                <TableColumn fx:id="colPkgEndDate" text="End Date" />
+                                <TableColumn fx:id="colPkgDesc" prefWidth="160.0" text="Description" />
+                                <TableColumn fx:id="colPkgBasePrice" text="Base Price" />
+                                <TableColumn fx:id="colPkgAgencyCommission" text="Commission" />
+                            </columns>
+                        </TableView>
+                  </children>
+              </HBox>
+                  <HBox prefHeight="0.0" prefWidth="940.0" spacing="150.0">
+                      <children>
+                          <Button fx:id="btnPackageAdd" alignment="CENTER" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Add" textAlignment="CENTER" />
+                          <Button fx:id="btnPackageEdit" alignment="CENTER" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Edit" textAlignment="CENTER" />
+                          <Button fx:id="btnPackageDelete" alignment="CENTER" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Delete" textAlignment="CENTER" />
+                      </children>
+                      <padding>
+                          <Insets left="150.0" right="50.0" />
+                      </padding>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+                  </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
     </children>
 </AnchorPane>

@@ -9,10 +9,7 @@ import data.MySQLConnectionData;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -80,15 +77,22 @@ public class CustomerAddController {
     @FXML // fx:id="btnDeleteCustomer"
     private Button btnDeleteCustomer; // Value injected by FXMLLoader
 
+    @FXML
+//    private ComboBox<?> cmbProv;
+    private ComboBox cmbProv;
+
     private int nextId;
 
     public void NextId(int id) {
         nextId = id;
     }
 
+    public CustomerAddController() {
+
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-
 
         btnCancelCustomer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -98,34 +102,34 @@ public class CustomerAddController {
             }
         });
 
-        btnDeleteCustomer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-//                Alert alert = new Alert(Alert.AlertType.WARNING,"Are you Sure, you want to delete this Customer?",ButtonType.CANCEL,ButtonType.YES);
-//                Optional<ButtonType> result =  alert.showAndWait();
-//
-//                if(result.get() == ButtonType.YES){
-//                    try {
-//                        MySQLConnectionData MySQL = new MySQLConnectionData();
-//                        Connection conn = MySQL.getMySQLConnection();
-//                        Statement stmt = conn.createStatement();
-//
-//                        String sql = "Delete FROM customers where CustomerId = "+cust.getCustomerId();
-//                        stmt.executeUpdate(sql);
-//
-//                        Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Customer has been deleted", ButtonType.OK);
-//                        conn.close();
-//
-//                        alert2.show();
-//                        Stage stage = (Stage) btnSaveCustomer.getScene().getWindow();
-//                        stage.close();
-//
-//                    } catch (SQLException throwables) {
-//                        throwables.printStackTrace();
-//                    }
-//                }
-            }
-        });
+//        btnDeleteCustomer.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+////                Alert alert = new Alert(Alert.AlertType.WARNING,"Are you Sure, you want to delete this Customer?",ButtonType.CANCEL,ButtonType.YES);
+////                Optional<ButtonType> result =  alert.showAndWait();
+////
+////                if(result.get() == ButtonType.YES){
+////                    try {
+////                        MySQLConnectionData MySQL = new MySQLConnectionData();
+////                        Connection conn = MySQL.getMySQLConnection();
+////                        Statement stmt = conn.createStatement();
+////
+////                        String sql = "Delete FROM customers where CustomerId = "+cust.getCustomerId();
+////                        stmt.executeUpdate(sql);
+////
+////                        Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Customer has been deleted", ButtonType.OK);
+////                        conn.close();
+////
+////                        alert2.show();
+////                        Stage stage = (Stage) btnSaveCustomer.getScene().getWindow();
+////                        stage.close();
+////
+////                    } catch (SQLException throwables) {
+////                        throwables.printStackTrace();
+////                    }
+////                }
+//            }
+//        });
 
         btnSaveCustomer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -133,10 +137,12 @@ public class CustomerAddController {
                 try {
                     MySQLConnectionData MySQL = new MySQLConnectionData();
                     Connection conn = MySQL.getMySQLConnection();
+
                     String sql =
                             "INSERT INTO customers VALUES\n" +
                                     "("+nextId+",'"+ txtCustFirstName.getText()+"','"+ txtCustLastName.getText()+"','"+txtCustAddress.getText()+
-                                    "','"+txtCustCity.getText()+"','"+ txtCustProv.getText()+"','"+ txtCustPostal.getText()+"','"+ txtCustCountry.getText()+"','"
+                                    "','"+txtCustCity.getText()+"','"+ cmbProv.getValue()+"','"+ txtCustPostal.getText()+
+                                    "','"+ txtCustCountry.getText()+"','"
                                     + txtCustHomePhone.getText()+"','"+ txtCustBusPhone.getText()+"','"+ txtCustEmail.getText()+"','"+ Integer.parseInt(txtAgentId.getText())+"')";
 
                         System.out.println(sql);
@@ -166,7 +172,6 @@ public class CustomerAddController {
 
             }
         });
-
 
     }
 }
