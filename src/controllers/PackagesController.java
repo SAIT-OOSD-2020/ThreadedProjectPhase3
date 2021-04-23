@@ -73,6 +73,8 @@ public class PackagesController {
     }
 
     private void btnAddClickedEvent() {
+        PackagesController currPkg = this;
+
         btnPackageAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -87,6 +89,7 @@ public class PackagesController {
                 }
 
                 pkgModifyController = loader.getController();
+                pkgModifyController.setParentController(currPkg);
 
                 Stage popupStage = new Stage();
                 popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
@@ -99,6 +102,8 @@ public class PackagesController {
     }
 
     private void btnEditClickedEvent() {
+        PackagesController currPkg = this;
+
         btnPackageEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -113,6 +118,7 @@ public class PackagesController {
                 }
 
                 pkgModifyController = loader.getController();
+                pkgModifyController.setParentController(currPkg);
                 Package currentPkg = tblPackages.getSelectionModel().getSelectedItem();
                 pkgModifyController.passCurrPackage(currentPkg);
 

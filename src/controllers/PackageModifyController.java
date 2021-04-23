@@ -160,6 +160,10 @@ public class PackageModifyController {
         }
     }
 
+    public void setParentController(PackagesController currCtrl) {
+        parentPackageCtrl = currCtrl;
+    }
+
 }
 
 
