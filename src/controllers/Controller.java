@@ -26,7 +26,6 @@ public class Controller {
     @FXML
     void initialize() {
         PackagesController pc = new PackagesController();
-        ProductsController prc = new ProductsController();
         Products_SuppliersController sc = new Products_SuppliersController();
         CustomerController cc = new CustomerController();
         //BookingViewController bc = new BookingViewController();

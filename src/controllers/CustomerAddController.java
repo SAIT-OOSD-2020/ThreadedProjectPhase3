@@ -94,7 +94,6 @@ public class CustomerAddController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
 
-
         btnCancelCustomer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {

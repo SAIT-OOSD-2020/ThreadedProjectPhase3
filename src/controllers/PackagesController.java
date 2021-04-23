@@ -6,20 +6,37 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
 import java.util.Currency;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PackagesController {
 
+    @FXML // ResourceBundle that was given to the FXMLLoader
+    private ResourceBundle resources;
+    @FXML // URL location of the FXML file that was given to the FXMLLoader
+    private URL location;
+
     // Table
     @FXML
-    private TableView<Package> tblPackages;
+    protected TableView<Package> tblPackages;
     @FXML
     private TableColumn<Package, String> colPkgName;
     @FXML
@@ -39,113 +56,84 @@ public class PackagesController {
     @FXML
     private Button btnPackageEdit;
     @FXML
-    private Button btnPackageSave;
-    @FXML
     private Button btnPackageDelete;
-    @FXML
-    private Button btnPackageReset;
 
-    //TextFields
-    @FXML
-    private TextField txtPkgName;
-    @FXML
-    private TextField txtPkgStartDate;
-    @FXML
-    private DatePicker dtpPkgStartDate;
-    @FXML
-    private TextField txtPkgEndDate;
-    @FXML
-    private DatePicker dtpPkgEndDate;
-    @FXML
-    private TextField txtPkgDesc;
-    @FXML
-    private TextField txtPkgBasePrice;
-    @FXML
-    private TextField txtPkgAgencyCommission;
+    private PackageModifyController pkgModifyController;
 
-    private String editState = "Add";
 
     @FXML
     void initialize() {
 
         tableReset();
+        tblPackages.getSelectionModel().selectFirst();
+        btnAddClickedEvent();
+        btnEditClickedEvent();
+        btnDeleteClickedEvent();
 
+    }
+
+    private void btnAddClickedEvent() {
         btnPackageAdd.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                tblPackages.setDisable(true);
-                setEditableText(true);
-                btnPackageEdit.setDisable(true);
-                btnPackageSave.setDisable(false);
-                btnPackageAdd.setDisable(true);
-                btnPackageDelete.setDisable(true);
 
-                editState = "Add";
-
-            }
-        });
-
-        btnPackageEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                tblPackages.setDisable(true);
-                setEditableText(true);
-                btnPackageEdit.setDisable(true);
-                btnPackageSave.setDisable(false);
-                btnPackageAdd.setDisable(true);
-
-                editState = "Edit";
-
-            }
-        });
-
-        btnPackageSave.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-
-                if (editState == "Add") {
-                    create();
-                } else if (editState == "Edit") {
-                    update();
-                }
-                else {
-                    System.out.println("Mistakes were made");
+                // Call packageModify controller
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../layout/packageModify.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                resetForm();
-            }
-        });
+                pkgModifyController = loader.getController();
 
-        btnPackageDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                setEditableText(false);
-                btnPackageEdit.setDisable(false);
-                btnPackageSave.setDisable(true);
-                btnPackageAdd.setDisable(false);
-                btnPackageDelete.setDisable(false);
-                delete();
-                tableReset();
-            }
-        });
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
+                popupStage.setScene(new Scene(root));
+                popupStage.setTitle("Add New Package");
 
-        btnPackageReset.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                tblPackages.getSelectionModel().clearSelection();
-                tblPackages.setDisable(false);
-                resetForm();
-                setEditableText(false);
-                btnPackageEdit.setDisable(true);
-                btnPackageSave.setDisable(true);
-                btnPackageAdd.setDisable(false);
-                btnPackageDelete.setDisable(true);
-
+                popupStage.show();
             }
         });
     }
 
-    private void tableReset() {
+    private void btnEditClickedEvent() {
+        btnPackageEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+                // Call packageModify controller
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../layout/packageModify.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                pkgModifyController = loader.getController();
+                Package currentPkg = tblPackages.getSelectionModel().getSelectedItem();
+                pkgModifyController.passCurrPackage(currentPkg);
+
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);    // lock any other windows of the application
+                popupStage.setScene(new Scene(root));
+                popupStage.setTitle("Edit New Package");
+
+                popupStage.show();
+            }
+        });
+    }
+    private void btnDeleteClickedEvent() {
+        btnPackageDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                delete();
+            }
+        });
+    }
+    protected void tableReset() {
         try {
             MySQLConnectionData MySQL = new MySQLConnectionData();
             Connection conn = MySQL.getMySQLConnection();
@@ -175,135 +163,11 @@ public class PackagesController {
                 @Override
                 public void changed(ObservableValue<? extends Package> observableValue, Package o, Package t1) {
 
-                    txtPkgName.setText(t1.getPkgName());
-                    dtpPkgStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
-                    dtpPkgEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
-                    txtPkgStartDate.setText(t1.getPkgStartDate().toString());
-                    txtPkgEndDate.setText(t1.getPkgEndDate().toString());
-                    txtPkgDesc.setText(t1.getPkgDesc());
-                    txtPkgBasePrice.setText(String.valueOf(t1.getPkgBasePrice()));
-                    txtPkgAgencyCommission.setText(String.valueOf(t1.getPkgAgencyCommission()));
-                    btnPackageAdd.setDisable(true);
-                    btnPackageEdit.setDisable(false);
-                    btnPackageSave.setDisable(true);
-                    btnPackageDelete.setDisable(false);
                 }
             });
             conn.close();
         } catch (
                 SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    private void resetForm() {
-
-        tableReset();
-        tblPackages.setDisable(false);
-        setEditableText(false);
-        btnPackageEdit.setDisable(true);
-        btnPackageSave.setDisable(true);
-        btnPackageAdd.setDisable(false);
-        btnPackageDelete.setDisable(false);
-
-        txtPkgName.setText("");
-        txtPkgStartDate.setText("");
-        txtPkgEndDate.setText("");
-        txtPkgDesc.setText("");
-        txtPkgBasePrice.setText("");
-        txtPkgAgencyCommission.setText("");
-    }
-
-    private void setEditableText(boolean bool) {
-        if (bool){
-            txtPkgName.setDisable(false);
-            dtpPkgStartDate.setDisable(false);
-            dtpPkgEndDate.setDisable(false);
-            txtPkgStartDate.setDisable(false);
-            txtPkgEndDate.setDisable(false);
-            txtPkgDesc.setDisable(false);
-            txtPkgBasePrice.setDisable(false);
-            txtPkgAgencyCommission.setDisable(false);
-
-        } else {
-            txtPkgName.setDisable(true);
-            dtpPkgStartDate.setDisable(true);
-            dtpPkgEndDate.setDisable(true);
-            txtPkgStartDate.setDisable(true);
-            txtPkgEndDate.setDisable(true);
-            txtPkgDesc.setDisable(true);
-            txtPkgBasePrice.setDisable(true);
-            txtPkgAgencyCommission.setDisable(true);
-
-        }
-    }
-
-    private void update() {
-        try {
-            MySQLConnectionData MySQL = new MySQLConnectionData();
-            Connection conn = MySQL.getMySQLConnection();
-            String query = "UPDATE Packages set PkgName = ?, PkgStartDate = ?, PkgEndDate = ?, PkgDesc = ?, " +
-                    "PkgBasePrice = ?,  PkgAgencyCommission = ? where " +
-                    "PackageId = ?";
-
-            Package pkg = tblPackages.getSelectionModel().getSelectedItem();
-
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-            stmt.setString(1, txtPkgName.getText());
-            stmt.setDate(2, Date.valueOf(dtpPkgStartDate.getValue()));
-            stmt.setDate(3, Date.valueOf(dtpPkgEndDate.getValue()));
-            stmt.setString(4, txtPkgDesc.getText());
-            stmt.setString(5, txtPkgBasePrice.getText());
-            stmt.setString(6, txtPkgAgencyCommission.getText());
-            stmt.setInt(7, pkg.getPackageId());
-
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0)
-            {
-                System.out.println("Package updated");
-            }
-            else
-            {
-                System.out.println("Package update failed");
-            }
-
-            conn.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    private void create() {
-        try {
-            MySQLConnectionData MySQL = new MySQLConnectionData();
-            Connection conn = MySQL.getMySQLConnection();
-            String query = "INSERT INTO Packages (PkgName, PkgStartDate, PkgEndDate, " +
-                    "PkgDesc, PkgBasePrice, PkgAgencyCommission) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
-
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, txtPkgName.getText());
-            stmt.setDate(2, Date.valueOf(dtpPkgStartDate.getValue()));
-            stmt.setDate(3, Date.valueOf(dtpPkgEndDate.getValue()));
-            stmt.setString(4, txtPkgDesc.getText());
-            stmt.setString(5, txtPkgBasePrice.getText());
-            stmt.setString(6, txtPkgAgencyCommission.getText());
-
-
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0)
-            {
-                System.out.println("Package created");
-            }
-            else
-            {
-                System.out.println("Package creation failed");
-            }
-
-            conn.close();
-        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -316,9 +180,7 @@ public class PackagesController {
 
             PreparedStatement stmt = conn.prepareStatement(query);
 
-            Package pkg = tblPackages.getSelectionModel().getSelectedItem();
-
-            stmt.setInt(1, pkg.getPackageId());
+            stmt.setInt(1, tblPackages.getSelectionModel().getSelectedItem().getPackageId());
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0)
@@ -334,5 +196,7 @@ public class PackagesController {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        tableReset();
     }
+
 }

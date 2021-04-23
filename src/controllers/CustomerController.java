@@ -149,6 +149,7 @@ public class CustomerController {
                 }
             }
         });
+
         editButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -181,10 +182,9 @@ public class CustomerController {
                     Logger logger = Logger.getLogger(getClass().getName());
                     logger.log(Level.SEVERE, "Failed to create new Window.", e);
                 }
-
-
             }
         });
+
         addButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -205,16 +205,12 @@ public class CustomerController {
                         public void handle(WindowEvent windowEvent) {
                             fillCustomerTable();
                             tableViewCustomers.getSelectionModel().select(selectedIndex);
-
                         }
                     });
-
                 } catch (IOException e) {
                     Logger logger = Logger.getLogger(getClass().getName());
                     logger.log(Level.SEVERE, "Failed to create new Window.", e);
                 }
-
-
             }
         });
 
@@ -228,8 +224,6 @@ public class CustomerController {
                         "Are you sure, you want to delete customer " + customer.getCustFirstName() + " " + customer.getCustLastName() + "?",
                         ButtonType.CANCEL,ButtonType.YES);
                 Optional<ButtonType> result =  alert.showAndWait();
-
-
 
                 if(result.get() == ButtonType.YES){
                     try {
@@ -247,8 +241,6 @@ public class CustomerController {
 
                         fillCustomerTable();
                         tableViewCustomers.getSelectionModel().select(selectedIndex);
-
-
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
