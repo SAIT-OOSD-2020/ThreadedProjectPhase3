@@ -38,7 +38,9 @@ public class BookingsController {
             Connection conn = MySQL.getMySQLConnection();
             Statement stmt = conn.createStatement();
 
-            ResultSet rsBookings = stmt.executeQuery("Select  BookingNo, BookingDate, Description, Destination, TripStart, TripEnd, BasePrice, AgencyCommission, (BasePrice+AgencyCommission) As TotalPrice, CONCAT(CustFirstName,' ',CustFirstName) as Customer  \n" +
+            ResultSet rsBookings = stmt.executeQuery("Select  BookingNo, BookingDate, Description, Destination, " +
+                    "TripStart, TripEnd, BasePrice, AgencyCommission, (BasePrice+AgencyCommission) As TotalPrice, " +
+                    "CONCAT(CustFirstName,' ',CustLastName) as Customer  \n" +
                     "FROM BookingDetails JOIN Bookings \n" +
                     "ON BookingDetails.BookingId = Bookings.BookingId\n" +
                     "JOIN Customers ON Customers.CustomerId = Bookings.CustomerId");
