@@ -1,29 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="372.0" prefWidth="803.0"
-            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookingsController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="568.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookingsController">
     <children>
-        <TableView fx:id="tblBookings" layoutX="34.0" layoutY="76.0" prefHeight="252.0" prefWidth="757.0">
-            <columns>
-                <TableColumn fx:id="colBookingNo" prefWidth="75.0" text="Booking No." />
-                <TableColumn fx:id="colBookingDate" prefWidth="75.0" text="Booking Date" />
-            <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="colDestination" prefWidth="75.0" text="Destination" />
-            <TableColumn fx:id="colTripStart" prefWidth="75.0" text="Trip Start" />
-            <TableColumn fx:id="colTripEnd" prefWidth="75.0" text="Trip End" />
-            <TableColumn fx:id="colBasePrice" prefWidth="75.0" text="Base Price" />
-            <TableColumn fx:id="colAgencyCommission" prefWidth="75.0" text="Agency Commission" />
-            <TableColumn fx:id="colTotalPrice" prefWidth="75.0" text="Total Price" />
-            <TableColumn fx:id="colCustomerId" prefWidth="75.0" text="CustomerId" />
-            </columns>
-        </TableView>
-      <Button fx:id="btnAddBooking" layoutX="34.0" layoutY="360.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Add" />
-      <Button fx:id="btnEditBooking" layoutX="190.0" layoutY="360.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Edit" />
-      <Button fx:id="btnDeleteBooking" layoutX="346.0" layoutY="360.0" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Delete" />
+      <VBox prefHeight="568.0" prefWidth="1000.0">
+         <children>
+              <TableView fx:id="tblBookings" prefHeight="440.0" prefWidth="960.0">
+                  <columns>
+                      <TableColumn fx:id="colBookingNo" prefWidth="75.0" text="Booking No." />
+                      <TableColumn fx:id="colBookingDate" prefWidth="75.0" text="Booking Date" />
+                  <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
+                  <TableColumn fx:id="colDestination" prefWidth="75.0" text="Destination" />
+                  <TableColumn fx:id="colTripStart" prefWidth="75.0" text="Trip Start" />
+                  <TableColumn fx:id="colTripEnd" prefWidth="75.0" text="Trip End" />
+                  <TableColumn fx:id="colBasePrice" prefWidth="75.0" text="Base Price" />
+                  <TableColumn fx:id="colAgencyCommission" prefWidth="75.0" text="Agency Commission" />
+                  <TableColumn fx:id="colTotalPrice" prefWidth="75.0" text="Total Price" />
+                  <TableColumn fx:id="colCustomerId" prefWidth="75.0" text="CustomerId" />
+                  </columns>
+               <VBox.margin>
+                  <Insets left="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+              </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+               <children>
+                  <Button fx:id="btnDeleteBooking" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Delete" />
+                  <Button fx:id="btnAddBooking" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Add" />
+                  <Button fx:id="btnEditBooking" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Edit" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="30.0" left="250.0" right="30.0" top="30.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

@@ -27,7 +27,7 @@ public class Controller {
     void initialize() {
         PackagesController pc = new PackagesController();
         ProductsController prc = new ProductsController();
-        SuppliersController sc = new SuppliersController();
+        Products_SuppliersController sc = new Products_SuppliersController();
         CustomerController cc = new CustomerController();
         //BookingViewController bc = new BookingViewController();
         BookingsController bc = new BookingsController();

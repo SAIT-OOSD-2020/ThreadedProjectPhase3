@@ -31,7 +31,7 @@ public class SupplierAdd {
 
     private int nextId;
 
-    private SuppliersController parentSupplierCtrl;
+    private Products_SuppliersController parentSupplierCtrl;
 
     @FXML
     void initialize() {
@@ -95,7 +95,7 @@ public class SupplierAdd {
         nextId = id;
     }
 
-    public void setParentController(SuppliersController parentCtrl) {
+    public void setParentController(Products_SuppliersController parentCtrl) {
         parentSupplierCtrl = parentCtrl;
     }
 }

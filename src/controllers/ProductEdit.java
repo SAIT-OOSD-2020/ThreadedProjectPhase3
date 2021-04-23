@@ -38,7 +38,7 @@ public class ProductEdit {
     @FXML
     private TextField txtProductId;
 
-    private ProductsController parentProductCtrl;
+    private Products_SuppliersController parentProductCtrl;
 
     private int selectedProductIndex = -1;
 
@@ -96,7 +96,7 @@ public class ProductEdit {
 
     }
 
-    public void setParentController(ProductsController currCtrl) {
+    public void setParentController(Products_SuppliersController currCtrl) {
         parentProductCtrl = currCtrl;
     }
 

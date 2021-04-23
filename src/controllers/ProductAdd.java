@@ -31,7 +31,7 @@ public class ProductAdd {
     @FXML
     private Button btnCancel;
 
-    private ProductsController parentProductCtrl;
+    private Products_SuppliersController parentProductCtrl;
 
     private int nextId;
 
@@ -39,7 +39,7 @@ public class ProductAdd {
         nextId = id;
     }
 
-    public void setParentController(ProductsController parentCtrl) {
+    public void setParentController(Products_SuppliersController parentCtrl) {
         parentProductCtrl = parentCtrl;
     }
 

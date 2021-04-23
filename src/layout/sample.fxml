@@ -3,30 +3,24 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="1000.0" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="200.0" tabMinHeight="25.0" tabMinWidth="184.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="1000.0" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="230.0" tabMinHeight="25.0" tabMinWidth="230.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <tabs>
-        <Tab text="Packages">
+        <Tab closable="false" text="Packages">
             <content>
                 <fx:include source="packages.fxml" />
-
             </content>
         </Tab>
-        <Tab text="Products">
+        <Tab closable="false" text="Products &amp; Suppliers">
             <content>
-                <fx:include source="products.fxml" />
+                <fx:include source="products_suppliers.fxml" />
             </content>
         </Tab>
-        <Tab text="Suppliers">
-            <content>
-                <fx:include source="suppliers.fxml" />
-            </content>
-        </Tab>
-        <Tab text="Customers">
+        <Tab closable="false" text="Customers">
             <content>
                 <fx:include source="customers.fxml" />
             </content>
         </Tab>
-        <Tab text="Bookings">
+        <Tab closable="false" text="Bookings">
             <content>
                 <fx:include source="bookings.fxml" />
             </content>

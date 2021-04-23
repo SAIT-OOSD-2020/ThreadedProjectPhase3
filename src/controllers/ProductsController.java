@@ -91,7 +91,7 @@ public class ProductsController {
                     e.printStackTrace();
                 }
                 childAddController = loader.getController();
-                childAddController.setParentController(currCtrl);
+                //childAddController.setParentController(currCtrl);
 
 
                 Stage popupStage = new Stage();
@@ -119,7 +119,7 @@ public class ProductsController {
                 }
 
                 childEditController = loader.getController();
-                childEditController.setParentController(currCtrl);
+                //childEditController.setParentController(currCtrl);
                 childEditController.passCurrProduct(fullProductList.indexOf(lstProducts.getSelectionModel().getSelectedItem()));
 
 
