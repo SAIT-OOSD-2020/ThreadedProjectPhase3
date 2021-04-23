@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.sql.*;
 import java.util.Currency;
-import java.util.Date;
 
 public class PackagesController {
 
@@ -157,8 +156,8 @@ public class PackagesController {
             ObservableList<Package> packageList = FXCollections.observableArrayList();
             while (rsPackages.next()) {
                 packageList.add(new Package(rsPackages.getInt(1), rsPackages.getString(2),
-                        rsPackages.getDate(3),
-                        rsPackages.getDate(4),
+                        rsPackages.getTimestamp(3),
+                        rsPackages.getTimestamp(4),
                         rsPackages.getString(5), rsPackages.getDouble(6),
                         rsPackages.getDouble(7)));
             }
@@ -177,8 +176,8 @@ public class PackagesController {
                 public void changed(ObservableValue<? extends Package> observableValue, Package o, Package t1) {
 
                     txtPkgName.setText(t1.getPkgName());
-                    //dtpPkgStartDate.setValue(LocalDate.from(t1.getPkgStartDate()));
-                    //dtpPkgEndDate.setValue(LocalDate.from(t1.getPkgEndDate()));
+                    dtpPkgStartDate.setValue(t1.getPkgStartDate().toLocalDateTime().toLocalDate());
+                    dtpPkgEndDate.setValue(t1.getPkgEndDate().toLocalDateTime().toLocalDate());
                     txtPkgStartDate.setText(t1.getPkgStartDate().toString());
                     txtPkgEndDate.setText(t1.getPkgEndDate().toString());
                     txtPkgDesc.setText(t1.getPkgDesc());
@@ -218,6 +217,8 @@ public class PackagesController {
     private void setEditableText(boolean bool) {
         if (bool){
             txtPkgName.setDisable(false);
+            dtpPkgStartDate.setDisable(false);
+            dtpPkgEndDate.setDisable(false);
             txtPkgStartDate.setDisable(false);
             txtPkgEndDate.setDisable(false);
             txtPkgDesc.setDisable(false);
@@ -226,6 +227,8 @@ public class PackagesController {
 
         } else {
             txtPkgName.setDisable(true);
+            dtpPkgStartDate.setDisable(true);
+            dtpPkgEndDate.setDisable(true);
             txtPkgStartDate.setDisable(true);
             txtPkgEndDate.setDisable(true);
             txtPkgDesc.setDisable(true);
@@ -248,8 +251,8 @@ public class PackagesController {
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setString(1, txtPkgName.getText());
-            stmt.setString(2, txtPkgStartDate.getText());
-            stmt.setString(3, txtPkgEndDate.getText());
+            stmt.setDate(2, Date.valueOf(dtpPkgStartDate.getValue()));
+            stmt.setDate(3, Date.valueOf(dtpPkgEndDate.getValue()));
             stmt.setString(4, txtPkgDesc.getText());
             stmt.setString(5, txtPkgBasePrice.getText());
             stmt.setString(6, txtPkgAgencyCommission.getText());
@@ -282,8 +285,8 @@ public class PackagesController {
 
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, txtPkgName.getText());
-            stmt.setString(2, txtPkgStartDate.getText());
-            stmt.setString(3, txtPkgEndDate.getText());
+            stmt.setDate(2, Date.valueOf(dtpPkgStartDate.getValue()));
+            stmt.setDate(3, Date.valueOf(dtpPkgEndDate.getValue()));
             stmt.setString(4, txtPkgDesc.getText());
             stmt.setString(5, txtPkgBasePrice.getText());
             stmt.setString(6, txtPkgAgencyCommission.getText());
