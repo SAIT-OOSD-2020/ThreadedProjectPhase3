@@ -67,7 +67,7 @@ public class CustomerBookingsController {
 
                 bookingsList.add(bookings);
 //                bookings.clear();
-                System.out.println(bookingsList);
+                //System.out.println(bookingsList);
 
             }
             rsBookings.next();
@@ -88,7 +88,7 @@ public class CustomerBookingsController {
                 });
 
                 tableViewCustBookings.getColumns().addAll(col);
-                System.out.println("Column ["+i+"] ");
+//                System.out.println("Column ["+i+"] ");
 
 
 //                temp = new TableColumn();

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="1000.0" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="230.0" tabMinHeight="25.0" tabMinWidth="230.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="1000.0" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="316.0" tabMinHeight="25.0" tabMinWidth="316.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <tabs>
         <Tab closable="false" text="Packages">
             <content>
@@ -20,10 +20,10 @@
                 <fx:include source="customers.fxml" />
             </content>
         </Tab>
-        <Tab closable="false" text="Bookings">
+<!--        <Tab closable="false" text="Bookings">
             <content>
                 <fx:include source="bookings.fxml" />
             </content>
-        </Tab>
+        </Tab>-->
     </tabs>
 </TabPane>
