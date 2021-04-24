@@ -131,6 +131,7 @@ public class PackagesController {
             }
         });
     }
+
     private void btnDeleteClickedEvent() {
         btnPackageDelete.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -139,6 +140,7 @@ public class PackagesController {
             }
         });
     }
+
     protected void tableReset() {
         try {
             MySQLConnectionData MySQL = new MySQLConnectionData();

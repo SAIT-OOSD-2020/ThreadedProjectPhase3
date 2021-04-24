@@ -14,8 +14,17 @@
          <children>
             <TableView fx:id="tableViewCustomers" prefHeight="623.0" prefWidth="960.0">
               <columns>
-                <TableColumn prefWidth="449.0" text="C1" />
-                <TableColumn prefWidth="305.0" text="C2" />
+                <TableColumn fx:id="colFirstName" maxWidth="80.0" text="First Name" />
+                <TableColumn fx:id="colLastName" maxWidth="80.0" text="Last Name" />
+                  <TableColumn fx:id="colAddress" maxWidth="120.0" prefWidth="120.0" text="Address" />
+                  <TableColumn fx:id="colCity" maxWidth="80.0" text="City" />
+                  <TableColumn fx:id="colProvince" maxWidth="80.0" text="Province" />
+                  <TableColumn fx:id="colPostal" maxWidth="80.0" text="Postal Code" />
+                  <TableColumn fx:id="colCountry" maxWidth="80.0" text="Country" />
+                  <TableColumn fx:id="colHomePhone" maxWidth="80.0" text="Home Phone" />
+                  <TableColumn fx:id="colBusPhone" maxWidth="123.0" text="Business Phone" />
+                  <TableColumn fx:id="colEmail" maxWidth="120.0" prefWidth="120.0" text="Email" />
+                  <TableColumn fx:id="colAgtID" maxWidth="80.0" text="Agent ID" />
               </columns>
                <VBox.margin>
                   <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />

@@ -5,6 +5,7 @@
 package controllers;
 
 import classes.Customer;
+import classes.Package;
 import data.MySQLConnectionData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,11 +41,14 @@ public class CustomerController {
 
     @FXML // fx:id="tableViewCustomers"
     private TableView<Customer> tableViewCustomers; // Value injected by FXMLLoader
+    @FXML
+    private TableColumn<Package, String> colFirstName, colLastName, colAddress, colCity, colProvince,
+            colPostal, colCountry, colHomePhone, colBusPhone, colEmail ;
+    @FXML
+    private TableColumn<Package, Integer> colAgtID;
 
     @FXML // fx:id="btnViewBookings"
     private Button btnViewBookings; // Value injected by FXMLLoader
-
-
     @FXML // fx:id="editButton"
     private Button editButton; // Value injected by FXMLLoader
 
@@ -60,6 +64,7 @@ public class CustomerController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
         fillCustomerTable();
         tableViewCustomers.getSelectionModel().selectFirst();
 
@@ -226,31 +231,46 @@ public class CustomerController {
 
             // Display values for Customers tab
             ResultSet rsCustomers = stmt.executeQuery("SELECT * FROM customers");
-            ResultSetMetaData rsmd = rsCustomers.getMetaData();
+            /*ResultSetMetaData rsmd = rsCustomers.getMetaData();*/
             ObservableList<Customer> customerList = FXCollections.observableArrayList();
-            ArrayList listOfCustomers = new ArrayList();
+            /*ArrayList listOfCustomers = new ArrayList();*/
             while (rsCustomers.next()) {
                 customerList.add(new Customer(rsCustomers.getInt(1), rsCustomers.getString(2), rsCustomers.getString(3),
                         rsCustomers.getString(4), rsCustomers.getString(5), rsCustomers.getString(6),
                         rsCustomers.getString(7), rsCustomers.getString(8), rsCustomers.getString(9),
                         rsCustomers.getString(10), rsCustomers.getString(11), rsCustomers.getInt(12)));
-                listOfCustomers.add(rsCustomers.getString(2));
+                //istOfCustomers.add(rsCustomers.getString(2));
             }
             rsCustomers.next();
 
-            int colCount = rsmd.getColumnCount();
+/*            int colCount = rsmd.getColumnCount();*/
 
-            TableColumn temp;
-            tableViewCustomers.getColumns().clear();
+            //TableColumn temp;
+            //tableViewCustomers.getColumns().clear();
+            colFirstName.setCellValueFactory(new PropertyValueFactory<>("CustFirstName"));
+            colLastName.setCellValueFactory(new PropertyValueFactory<>("CustLastName"));
+            colAddress.setCellValueFactory(new PropertyValueFactory<>("CustAddress"));
+            colCity.setCellValueFactory(new PropertyValueFactory<>("CustCity"));
+            colProvince.setCellValueFactory(new PropertyValueFactory<>("CustProv"));
+            colPostal.setCellValueFactory(new PropertyValueFactory<>("CustPostal"));
+            colCountry.setCellValueFactory(new PropertyValueFactory<>("CustCountry"));
+            colHomePhone.setCellValueFactory(new PropertyValueFactory<>("CustHomePhone"));
+            colBusPhone.setCellValueFactory(new PropertyValueFactory<>("CustBusPhone"));
+            colEmail.setCellValueFactory(new PropertyValueFactory<>("CustEmail"));
+            colAgtID.setCellValueFactory(new PropertyValueFactory<>("AgentId"));
+            tableViewCustomers.setItems(customerList);
 
-            for (int i = 2; i <= colCount; i++) {
+
+
+
+/*            for (int i = 2; i <= colCount; i++) {
                 temp = new TableColumn();
                 temp.setText(rsmd.getColumnLabel(i));
                 temp.setCellValueFactory(new PropertyValueFactory<>(rsmd.getColumnLabel(i)));
                 tableViewCustomers.getColumns().add(temp);
             }
 
-            tableViewCustomers.setItems(customerList);
+            tableViewCustomers.setItems(customerList);*/
             conn.close();
         } catch (
                 SQLException throwables) {
