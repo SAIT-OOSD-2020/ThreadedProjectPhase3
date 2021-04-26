@@ -2,6 +2,8 @@ package classes;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.ArrayList;
+
 public class Customer {
     private SimpleIntegerProperty CustomerId;
     private String CustFirstName;
@@ -146,5 +148,22 @@ public class Customer {
     @Override
     public String toString() {
         return CustFirstName + " " + CustLastName;
+    }
+
+    public String toPDF() {
+        return CustLastName + ", " + CustFirstName + "\n" +
+                CustAddress + "\n" +
+                CustCity + ", " + CustProv + "\n" +
+                CustCountry + ", " + CustPostal;
+
+    }
+
+    public ArrayList<String> toPDFarray() {
+        ArrayList<String> customerArray = new ArrayList();
+        customerArray.add(CustLastName + ", " + CustFirstName);
+        customerArray.add(CustAddress);
+        customerArray.add(CustCity + ", " + CustProv);
+        customerArray.add(CustCountry + ", " + CustPostal);
+        return customerArray;
     }
 }

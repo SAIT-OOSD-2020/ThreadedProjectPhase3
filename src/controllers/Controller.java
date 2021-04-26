@@ -29,6 +29,6 @@ public class Controller {
         Products_SuppliersController sc = new Products_SuppliersController();
         CustomerController cc = new CustomerController();
         //BookingViewController bc = new BookingViewController();
-        BookingsController bc = new BookingsController();
+        //BookingsController bc = new BookingsController();
     }
 }

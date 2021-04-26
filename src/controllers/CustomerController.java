@@ -67,6 +67,7 @@ public class CustomerController {
 
         fillCustomerTable();
         tableViewCustomers.getSelectionModel().selectFirst();
+        selectedCustomer = tableViewCustomers.getSelectionModel().getSelectedItem();
 
 /*        tableViewCustomers.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -97,7 +98,7 @@ public class CustomerController {
                      * if "fx:controller" is not set in fxml
                      * fxmlLoader.setController(NewWindowController);
                      */
-                    fxmlLoader.setController(new CustomerBookingsController(selectedCustomer.getCustomerId()));
+                    fxmlLoader.setController(new CustomerBookingsController(selectedCustomer));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
                     stage.setTitle("Customer Bookings");
