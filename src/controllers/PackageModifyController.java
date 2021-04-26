@@ -1,20 +1,13 @@
 package controllers;
 
 import classes.Package;
-import classes.Supplier;
 import data.MySQLConnectionData;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import dataValidation.Validator;
 
 import java.net.URL;
 import java.sql.*;
@@ -50,6 +43,8 @@ public class PackageModifyController {
     private PackagesController parentPackageCtrl;
     private int selectedPackageIndex = -1;
 
+    Validator validator = new Validator();
+
     @FXML
     void initialize() {
         editState = "Add";
@@ -58,19 +53,31 @@ public class PackageModifyController {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
-                if (editState == "Add") {
-                    create();
-                } else if (editState == "Edit") {
-                    update();
-                } else {
-                    System.out.println("Mistakes were made");
+                if (validator.IsPresent(txtPkgName, "Package Name") &&
+                        validator.IsPresentAndDate(dtpPkgStartDate, "Start Date") &&
+                        validator.IsPresentAndDate(dtpPkgEndDate, "End Date") &&
+                        validator.IsPresent(txtPkgBasePrice, "Base Price") &&
+                        validator.IsNumeric(txtPkgBasePrice, "Base Price") &&
+                        (txtPkgAgencyCommission.getText().equals("") ||
+                        validator.IsNumeric(txtPkgAgencyCommission, "Agency Commission"))
+                ){
+                    if (editState == "Add") {
+                        create();
+                    } else if (editState == "Edit") {
+                        update();
+                    } else {
+                        System.out.println("Mistakes were made");
+                    }
+
+                    parentPackageCtrl.tableReset();
+                    parentPackageCtrl.tblPackages.getSelectionModel().selectFirst();
+
+                    Stage stage = (Stage) btnPackageSave.getScene().getWindow();
+                    stage.close();
                 }
 
-                parentPackageCtrl.tableReset();
-                parentPackageCtrl.tblPackages.getSelectionModel().selectFirst();
 
-                Stage stage = (Stage) btnPackageSave.getScene().getWindow();
-                stage.close();
+
             }
         });
 

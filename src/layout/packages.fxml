@@ -26,15 +26,12 @@
                         </TableView>
                   </children>
               </HBox>
-                  <HBox prefHeight="0.0" prefWidth="940.0" spacing="150.0">
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="940.0" spacing="100.0">
                       <children>
                           <Button fx:id="btnPackageAdd" alignment="CENTER" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Add" textAlignment="CENTER" />
                           <Button fx:id="btnPackageEdit" alignment="CENTER" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Edit" textAlignment="CENTER" />
                           <Button fx:id="btnPackageDelete" alignment="CENTER" maxHeight="40.0" maxWidth="100.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 8px;" text="Delete" textAlignment="CENTER" />
                       </children>
-                      <padding>
-                          <Insets left="150.0" right="50.0" />
-                      </padding>
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>

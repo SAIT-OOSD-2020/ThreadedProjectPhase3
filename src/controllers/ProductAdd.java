@@ -52,7 +52,7 @@ public class ProductAdd {
                 String newProdName = txtNewProdName.getText();
 
                 Validator valid = new Validator();
-                boolean isvalid = valid.IsPresentValidator(txtNewProdName, "Product Name");// && valid.IsNonNumericValidator(txtProdName, "Product Name");
+                boolean isvalid = valid.IsPresent(txtNewProdName, "Product Name");// && valid.IsNonNumericValidator(txtProdName, "Product Name");
 
                 if (isvalid) {
                     try {
