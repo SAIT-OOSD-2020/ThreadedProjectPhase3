@@ -4,6 +4,7 @@
 
 package controllers;
 
+import classes.BookingPDFModel;
 import classes.Customer;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -20,13 +21,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -123,7 +124,7 @@ public class CustomerBookingsController {
 
         btnExport.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent t){
-                Document document = new Document();
+                Document document = new Document(PageSize.A4);
                 try {
                     MySQLConnectionData MySQL = new MySQLConnectionData();
                     Connection conn = MySQL.getMySQLConnection();
@@ -134,78 +135,105 @@ public class CustomerBookingsController {
                             "JOIN bookings as b on bd.BookingId = b.BookingId " +
                             "WHERE CustomerId = ? ";
                     PreparedStatement stmt = conn.prepareStatement(query);
-                    stmt.setInt(1, customerId);
+                    stmt.setInt(1, customer.getCustomerId());
 
                     ResultSet rsBookings = stmt.executeQuery();
-                    ResultSetMetaData rsmd = rsBookings.getMetaData();
-                    ObservableList<String> bookings;
-                    ObservableList<ObservableList> bookingsList = FXCollections.observableArrayList();
+                    ArrayList<BookingPDFModel> bookings = new ArrayList<>();
 
                     while (rsBookings.next()) {
-                        bookings=FXCollections.observableArrayList();
-                        for(int i=1 ; i<=rsmd.getColumnCount(); i++){
-                            bookings.add(rsBookings.getString(i));
-                        }
-                        bookingsList.add(bookings);
+                        bookings.add(new BookingPDFModel(rsBookings.getString(1),
+                                rsBookings.getTimestamp(2),
+                                rsBookings.getString(3),
+                                rsBookings.getString(4),
+                                rsBookings.getTimestamp(5),
+                                rsBookings.getTimestamp(6),
+                                rsBookings.getDouble(7),
+                                rsBookings.getDouble(8),
+                                rsBookings.getDouble(9)
+                        ));
                     }
                     rsBookings.next();
+                    conn.close();
 
-                    //writing bookings to pdf
+
+                    //writing customer details to pdf
                     PdfWriter.getInstance(document, new FileOutputStream("CustomerBookings.pdf"));
                     document.open();
-                    Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-                    Chunk title = new Chunk("Invoice", font);
-                    document.add(title);
+                    Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+
+                    document.add(new Paragraph("Invoice", font));
                     document.add(new Paragraph("\n"));
-                    String customerString = customer.toPDF();
-
-
-                    document.add(new Paragraph(customerString, font));
+                    document.add(new Paragraph(customer.toPDF(), font));
                     document.add(new Paragraph("\n"));
 
-                    PdfPTable table = new PdfPTable(new float[]{1, 2, 1, 1, 1});
-                    PdfPCell cell = new PdfPCell();
+                    //write bookings to PDF
+                    PdfPTable table = new PdfPTable(new float[]{2, 2, 3});
+                    table.setTotalWidth(PageSize.A4.getWidth() - 100);
+                    table.setLockedWidth(true);
+                    DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.DEFAULT);
 
-                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);//ALIGN_CENTER mandate for all the cell
-                    cell.setBorder(Rectangle.NO_BORDER);//No border for this cell mandate for all the cell
-                    table.addCell(cell);
+                    for (int i=0; i<bookings.size(); i++) {
+                        BookingPDFModel currentBooking = bookings.get(i);
 
-                    //for table start(not to use Rectangle.NO_BORDER)
+                        // Row 1
+                        table.addCell(cellHelper("Booking Number"));
+                        table.addCell(cellHelper("Booking Date"));
+                        table.addCell(cellHelper(dateFormatter.format(currentBooking.getBookingDate())));
+                        // Row 2
+                        table.addCell(cellHelper(currentBooking.getBookingNo()));
+                        table.addCell(cellHelper("TripStart"));
+                        table.addCell(cellHelper(dateFormatter.format(currentBooking.getTripStart())));
+                        // Row 3
+                        table.addCell(cellEmpty());
+                        table.addCell(cellHelper("TripEnd"));
+                        table.addCell(cellHelper(dateFormatter.format(currentBooking.getTripEnd())));
+                        // Row 4
+                        table.addCell(cellEmpty());
+                        table.addCell(cellHelper("Destination"));
+                        table.addCell(cellHelper(currentBooking.getDestination()));
+                        // Row 5
+                        table.addCell(cellEmpty());
+                        table.addCell(cellHelper("Description"));
+                        table.addCell(cellHelper(currentBooking.getDescription()));
+                        // Row 6
+                        table.addCell(cellEmpty());
+                        table.addCell(cellHelper("BasePrice"));
+                        table.addCell(cellHelper(String.valueOf(currentBooking.getBasePrice())));
+                        // Row 7
+                        table.addCell(cellEmpty());
+                        table.addCell(cellHelper("AgencyCommission"));
+                        table.addCell(cellHelper(String.valueOf(currentBooking.getAgencyCommission())));
+                        // Row 8
+                        table.addCell(cellEmpty());
+                        table.addCell(cellHelper("TotalPrice"));
+                        table.addCell(cellHelper(String.valueOf(currentBooking.getTotalPrice())));
+                        // Empty row spacer
+                        table.addCell(rowBottomBorder());
+                    }
 
-                    PdfPCell PdfPCell;//same cell instance for 1 row
+                    document.add(table);
 
-                    PdfPCell = new PdfPCell(new Phrase("Name",font));
-                    PdfPCell.setColspan(3);
-                    PdfPCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    PdfPCell.setGrayFill(0.8f);
-                    table.addCell(PdfPCell); //prepare cell and add to table
-
-                    PdfPCell = new PdfPCell(new Phrase("Dinesh",font));
-                    PdfPCell.setColspan(3);
-                    PdfPCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                    table.addCell(PdfPCell); //prepare cell and add to table
+/*                    //for table start(not to use Rectangle.NO_BORDER)
 
                     //for table end
 
                     //defining table width for each column
-                    Rectangle Rectangle = new Rectangle(275, 770);
+                    Rectangle Rectangle = new Rectangle(300, 770);
                     PdfPTable samplePdfPTable = new PdfPTable(3);
                     samplePdfPTable.setWidthPercentage(new float[] { 40,80, 160 },Rectangle);
 
                     //space between table using Phrase instance in cell and cell's colspan and fixedheight
-                    PdfPCell = new PdfPCell(new Phrase(""));
+                    PdfPCell PdfPCell;
+                    PdfPCell = new PdfPCell(new Phrase("TEST"));
                     PdfPCell.setColspan(7);
                     PdfPCell.setFixedHeight(25);
                     PdfPCell.setBorder(PdfPCell.NO_BORDER);
+                    table.addCell(PdfPCell);*/
 
-
-
-                    table.addCell(PdfPCell);
-
-                    document.add(table);
 
 
                     document.close();
+
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 } catch (FileNotFoundException e) {
@@ -217,8 +245,28 @@ public class CustomerBookingsController {
         });
     }
 
+    private PdfPCell cellHelper(String s) {
+        Font font = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+        PdfPCell currentCell = new PdfPCell(new Phrase(s, font));
+        currentCell.setColspan(1);
+        currentCell.setBorder(Rectangle.NO_BORDER);
+        currentCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        return currentCell;
+    }
 
 
-
+    private PdfPCell cellEmpty() {
+        PdfPCell cell = new PdfPCell();
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);//ALIGN_CENTER mandate for all the cell
+        cell.setBorder(Rectangle.NO_BORDER);//No border for this cell mandate for all the cell
+        return cell;
+    }
+    private PdfPCell rowBottomBorder() {
+        PdfPCell cell = new PdfPCell(new Phrase("\n"));
+        cell.setColspan(3);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);//ALIGN_CENTER mandate for all the cell
+        cell.setBorder(Rectangle.BOTTOM);//No border for this cell mandate for all the cell
+        return cell;
+    }
 }
 

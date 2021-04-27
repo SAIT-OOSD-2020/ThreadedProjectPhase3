@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="568.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Products_SuppliersController">
+<AnchorPane prefHeight="568.0" prefWidth="1000.0" styleClass="anchor" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Products_SuppliersController">
     <children>
       <VBox prefHeight="568.0" prefWidth="1000.0">
          <children>
@@ -19,14 +19,14 @@
                <children>
                     <VBox prefHeight="568.0" prefWidth="500.0">
                         <children>
-                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="545.0" text="Products" textAlignment="CENTER">
+                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="545.0" text="Products" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search products:" textAlignment="CENTER" wrappingWidth="150.0">
+                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Search products:" textAlignment="CENTER" wrappingWidth="150.0">
                                <font>
                                    <Font size="14.0" />
                                </font>
@@ -70,14 +70,14 @@
                     </VBox>
                   <VBox prefHeight="568.0" prefWidth="500.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="554.0" text="Suppliers" textAlignment="CENTER">
+                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="554.0" text="Suppliers" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search suppliers:" textAlignment="CENTER" wrappingWidth="150.0">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Search suppliers:" textAlignment="CENTER" wrappingWidth="150.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

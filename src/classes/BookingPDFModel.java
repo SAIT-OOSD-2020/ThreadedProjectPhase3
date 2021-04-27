@@ -1,8 +1,6 @@
 package classes;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.Date;
 
@@ -21,6 +19,23 @@ public class BookingPDFModel {
     public String ToString() {
         return " ";
     }*/
+
+    public BookingPDFModel(String bookingNo, Date bookingDate, String description,
+                           String destination, Date tripStart, Date tripEnd,
+                           double basePrice,
+                           double agencyCommission,
+                           double totalPrice)
+    {
+        BookingNo = bookingNo;
+        BookingDate = bookingDate;
+        Description = description;
+        Destination = destination;
+        TripStart = tripStart;
+        TripEnd = tripEnd;
+        BasePrice = new SimpleDoubleProperty(basePrice);
+        AgencyCommission = new SimpleDoubleProperty(agencyCommission);
+        TotalPrice = new SimpleDoubleProperty(totalPrice);
+    }
 
     public String getBookingNo() {
         return BookingNo;

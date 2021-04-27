@@ -1,17 +1,58 @@
-/*.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {*/
-/*    -fx-background-color: #00c5ed;*/
-/*    -fx-text-fill: white;*/
-/*}*/
+.tab-pane {
+    -fx-background-color: #545454;
+}
+
+.tab {
+    -fx-background-color: #545454;
+    -fx-text-fill: white;
+}
+
+.tab-pane>*.tab-header-area>*.tab-header-background
+{
+    -fx-background-color: -fx-outer-border, -fx-text-box-border, #333333;
+}
+
+.tab-label {
+    -fx-text-fill: white ;
+}
+
+.tab-label:focused {
+    -fx-text-fill: white ;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #ffffffff;
+}
+
+.tab:selected {
+    -fx-background-color: #5b3547;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    /*-fx-background-color: #5b3547;*/
+    -fx-text-fill: #ffffffff;
+    -fx-border-radius: 0px;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: #999999;
+}
 
 /*.table-view {*/
 /*    -fx-background-color: #00c5ed;*/
 /*}*/
 
-/*.tab {*/
-/*    -fx-background-color: darkgrey;*/
-/*}*/
 
-/*.tab-pane {*/
-/*    -fx-background-color: darkgrey;*/
-/*}*/
 
+
+
+.vbox {
+    -fx-background-color: darkgrey;
+}
+
+.anchor {
+    -fx-background-color: #545454;
+}
+
+.login-anchor {
+    -fx-background-color: #545454;
+}
+/*#5b3547*/

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="1000.0" snapToPixel="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="316.0" tabMinHeight="25.0" tabMinWidth="316.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="1000.0" snapToPixel="false" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="25.0" tabMaxWidth="316.0" tabMinHeight="25.0" tabMinWidth="316.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
     <tabs>
         <Tab closable="false" text="Packages">
             <content>

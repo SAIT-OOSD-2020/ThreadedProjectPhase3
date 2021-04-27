@@ -10,24 +10,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" styleClass="login-anchor" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <children>
       <HBox alignment="CENTER" prefHeight="600.0" prefWidth="1000.0">
          <children>
             <ImageView fitHeight="410.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@TravelExpertsNoBG.png" />
+                  <Image url="@TravelExpertsGray.png" />
                </image>
                <HBox.margin>
-                  <Insets bottom="40.0" />
+                  <Insets bottom="30.0" />
                </HBox.margin>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="600.0" prefWidth="383.0" spacing="10.0">
+            <VBox alignment="CENTER" maxHeight="410.0" maxWidth="410.0" prefHeight="410.0" prefWidth="410.0" spacing="10.0">
                <children>
-                  <Label text="Username" />
+                  <Label text="Username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <TextField fx:id="tfUsername" />
-                  <Label text="Password" />
+                  <Label text="Password" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <PasswordField fx:id="pwPassword" />
                   <Button fx:id="btnLogin" mnemonicParsing="false" text="Login">
                      <VBox.margin>
@@ -41,8 +48,11 @@
                   </Label>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                  <Insets left="40.0" right="40.0" top="40.0" />
                </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </VBox>
          </children>
       </HBox>
