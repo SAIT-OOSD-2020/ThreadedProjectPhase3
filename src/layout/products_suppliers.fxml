@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="568.0" prefWidth="1000.0" styleClass="anchor" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Products_SuppliersController">
+<AnchorPane prefHeight="568.0" prefWidth="1000.0" styleClass="anchor" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Products_SuppliersController">
     <children>
       <VBox prefHeight="568.0" prefWidth="1000.0">
          <children>
@@ -34,11 +34,7 @@
                                     <Insets left="50.0" />
                                  </HBox.margin>
                            </Text>
-                                <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="200.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </TextField>
+                              <TextField fx:id="txtSearch1" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                            <VBox.margin>
                               <Insets top="20.0" />
@@ -85,7 +81,11 @@
                                     <Insets />
                                  </HBox.margin>
                               </Text>
-                              <TextField fx:id="txtSearch1" prefHeight="25.0" prefWidth="200.0" />
+                                <TextField fx:id="txtSearch" prefHeight="25.0" prefWidth="200.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
                            </children>
                            <VBox.margin>
                               <Insets top="20.0" />
