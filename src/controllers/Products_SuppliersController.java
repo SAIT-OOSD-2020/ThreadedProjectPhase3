@@ -54,6 +54,7 @@ public class Products_SuppliersController {
         btnProductAddClickedEvent();
         btnProductEditClickedEvent();
         btnProductDeleteClickedEvent();
+        txtProdSearchChangedEvent();
 
         loadSupplierData();
         lstSuppliers.getSelectionModel().select(0);
@@ -238,6 +239,53 @@ public class Products_SuppliersController {
 
                         btnSupplierEdit.setDisable(false);
                         btnSupplierDelete.setDisable(false);
+                    }
+                }
+            }
+        });
+    }
+
+    private void txtProdSearchChangedEvent() {
+        txtProdSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                txtProdSearch.selectAll();
+            }
+        });
+
+        txtProdSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+
+                // When the textField is empty.
+                if (t1.isEmpty()){
+                    loadProductData();
+                    lstProducts.scrollTo(0);
+                    lstProducts.getSelectionModel().select(0);
+
+                    btnProductEdit.setDisable(false);
+                    btnProductDelete.setDisable(false);
+
+                } else {
+                    ObservableList<Product> tempList = FXCollections.observableArrayList();
+
+                    for (int i = 0; i < fullProductList.size(); i++){
+                        if (fullProductList.get(i).getProdName().matches("(?i).*"+ t1 + ".*")){
+                            tempList.add(fullProductList.get(i));
+                        }
+                    }
+
+                    lstProducts.setItems(tempList);
+
+                    if (lstProducts.getItems().size() == 0){
+                        btnProductEdit.setDisable(true);
+                        btnProductDelete.setDisable(true);
+                    } else {
+                        lstProducts.scrollTo(0);
+                        lstProducts.getSelectionModel().select(0);
+
+                        btnProductEdit.setDisable(false);
+                        btnProductDelete.setDisable(false);
                     }
                 }
             }
