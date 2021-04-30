@@ -31,7 +31,7 @@ public class Products_SuppliersController {
     @FXML
     private Button btnSupplierAdd, btnSupplierEdit, btnSupplierDelete;
     @FXML
-    protected TextField txtSearch;
+    protected TextField txtSearch, txtProdSearch;
 
     private SupplierAdd childSupplierAddController;
 

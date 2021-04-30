@@ -75,17 +75,16 @@ public class CustomerBookingsController {
             ResultSetMetaData rsmd = rsBookings.getMetaData();
             ObservableList<String> bookings;
             ObservableList<ObservableList> bookingsList = FXCollections.observableArrayList();
-//            ArrayList bookingsList = new ArrayList();
+
             while (rsBookings.next()) {
                 bookings=FXCollections.observableArrayList();
                 for(int i=1 ; i<=rsmd.getColumnCount(); i++){
                     bookings.add(rsBookings.getString(i));
-//                    System.out.println(rsBookings.getString(i));
+
                 }
 
                 bookingsList.add(bookings);
-//                bookings.clear();
-                //System.out.println(bookingsList);
+
 
             }
             rsBookings.next();
@@ -106,14 +105,7 @@ public class CustomerBookingsController {
                 });
 
                 tableViewCustBookings.getColumns().addAll(col);
-//                System.out.println("Column ["+i+"] ");
 
-
-//                temp = new TableColumn();
-//                temp.setText(rsmd.getColumnLabel(i));
-//                temp.setCellValueFactory(new PropertyValueFactory<>(rsmd.getColumnLabel(i)));
-
-//                tableViewCustBookings.getColumns().add(temp);
             }
 
             tableViewCustBookings.setItems(bookingsList);
@@ -212,25 +204,6 @@ public class CustomerBookingsController {
                     }
 
                     document.add(table);
-
-/*                    //for table start(not to use Rectangle.NO_BORDER)
-
-                    //for table end
-
-                    //defining table width for each column
-                    Rectangle Rectangle = new Rectangle(300, 770);
-                    PdfPTable samplePdfPTable = new PdfPTable(3);
-                    samplePdfPTable.setWidthPercentage(new float[] { 40,80, 160 },Rectangle);
-
-                    //space between table using Phrase instance in cell and cell's colspan and fixedheight
-                    PdfPCell PdfPCell;
-                    PdfPCell = new PdfPCell(new Phrase("TEST"));
-                    PdfPCell.setColspan(7);
-                    PdfPCell.setFixedHeight(25);
-                    PdfPCell.setBorder(PdfPCell.NO_BORDER);
-                    table.addCell(PdfPCell);*/
-
-
 
                     document.close();
 

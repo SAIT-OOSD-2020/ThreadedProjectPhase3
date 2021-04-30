@@ -69,15 +69,6 @@ public class CustomerController {
         tableViewCustomers.getSelectionModel().selectFirst();
         selectedCustomer = tableViewCustomers.getSelectionModel().getSelectedItem();
 
-/*        tableViewCustomers.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                if (t1.intValue() >= 0) {
-                    selectedIndex = t1.intValue();
-                }
-            }
-        });*/
-
         tableViewCustomers.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Customer>() {
             @Override
             public void changed(ObservableValue<? extends Customer> observableValue, Customer customer, Customer t1) {
@@ -106,14 +97,6 @@ public class CustomerController {
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.show();
 
-
-//                        stage.setOnHiding(new EventHandler<WindowEvent>() {
-//                            @Override
-//                            public void handle(WindowEvent windowEvent) {
-//                                fillCustomerTable();
-//                                tableViewCustomers.refresh();
-//                            }
-//                        });
 
                 } catch (IOException e) {
                     Logger logger = Logger.getLogger(getClass().getName());
