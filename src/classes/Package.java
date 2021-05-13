@@ -9,13 +9,13 @@ import java.util.Date;
 public class Package {
     private SimpleIntegerProperty PackageId;
     private String PkgName;
-    private Timestamp PkgStartDate;
-    private Timestamp PkgEndDate;
+    private Date PkgStartDate;
+    private Date PkgEndDate;
     private String PkgDesc;
     private SimpleDoubleProperty PkgBasePrice;
     private SimpleDoubleProperty PkgAgencyCommission;
 
-    public Package(int packageId, String pkgName, Timestamp pkgStartDate, Timestamp pkgEndDate,
+    public Package(int packageId, String pkgName, Date pkgStartDate, Date pkgEndDate,
                    String pkgDesc, double pkgBasePrice, double pkgAgencyCommission) {
         PackageId = new SimpleIntegerProperty(packageId);
         PkgName = pkgName;
@@ -46,19 +46,19 @@ public class Package {
         PkgName = pkgName;
     }
 
-    public Timestamp getPkgStartDate() {
+    public Date getPkgStartDate() {
         return PkgStartDate;
     }
 
-    public void setPkgStartDate(Timestamp pkgStartDate) {
+    public void setPkgStartDate(Date pkgStartDate) {
         PkgStartDate = pkgStartDate;
     }
 
-    public Timestamp getPkgEndDate() {
+    public Date getPkgEndDate() {
         return PkgEndDate;
     }
 
-    public void setPkgEndDate(Timestamp pkgEndDate) {
+    public void setPkgEndDate(Date pkgEndDate) {
         PkgEndDate = pkgEndDate;
     }
 

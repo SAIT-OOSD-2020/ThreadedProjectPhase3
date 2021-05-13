@@ -151,10 +151,12 @@ public class PackagesController {
             ResultSet rsPackages = stmt.executeQuery("SELECT * FROM Packages");
             ObservableList<Package> packageList = FXCollections.observableArrayList();
             while (rsPackages.next()) {
-                packageList.add(new Package(rsPackages.getInt(1), rsPackages.getString(2),
-                        rsPackages.getTimestamp(3),
-                        rsPackages.getTimestamp(4),
-                        rsPackages.getString(5), rsPackages.getDouble(6),
+                packageList.add(new Package(rsPackages.getInt(1),
+                        rsPackages.getString(2),
+                        rsPackages.getDate(3),
+                        rsPackages.getDate(4),
+                        rsPackages.getString(5),
+                        rsPackages.getDouble(6),
                         rsPackages.getDouble(7)));
             }
 

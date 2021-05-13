@@ -11,6 +11,7 @@ import dataValidation.Validator;
 
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class PackageModifyController {
@@ -93,8 +94,8 @@ public class PackageModifyController {
     public void passCurrPackage(Package currPkg) {
         this.currPkg = currPkg;
         txtPkgName.setText(currPkg.getPkgName());
-        dtpPkgStartDate.setValue(currPkg.getPkgStartDate().toLocalDateTime().toLocalDate());
-        dtpPkgEndDate.setValue(currPkg.getPkgEndDate().toLocalDateTime().toLocalDate());
+        dtpPkgStartDate.setValue(LocalDate.parse(currPkg.getPkgStartDate().toString()));
+        dtpPkgEndDate.setValue(LocalDate.parse(currPkg.getPkgEndDate().toString()));
         txtPkgDesc.setText(currPkg.getPkgDesc());
         txtPkgBasePrice.setText(String.valueOf(currPkg.getPkgBasePrice()));
         txtPkgAgencyCommission.setText(String.valueOf(currPkg.getPkgAgencyCommission()));
